@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://art/map/handrail-top.png" type="Texture" id=1]
+[ext_resource path="res://scene/Object/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scene/Object/Dinosaur.tscn" type="PackedScene" id=3]
+
+[sub_resource type="TileSet" id=1]
+0/name = "handrail-top.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[node name="Zoo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.33472
+margin_right = -1.33472
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2( 4, 4 )
+tile_set = SubResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 196630, 0, 0, 196631, 0, 0, 196632, 0, 0, 196633, 0, 0, 196634, 0, 0, 196635, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 0, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 196642, 0, 0, 196643, 0, 0, 196644, 0, 0, 196645, 0, 0, 196646, 0, 0, 196647, 0, 0, 196648, 0, 0, 196649, 0, 0, 196650, 0, 0, 196651, 0, 0, 196652, 0, 0, 262147, 0, 0, 262188, 0, 0, 327683, 0, 0, 327724, 0, 0, 393219, 0, 0, 393260, 0, 0, 458755, 0, 0, 458796, 0, 0, 524291, 0, 0, 524332, 0, 0, 589827, 0, 0, 589868, 0, 0, 655363, 0, 0, 655404, 0, 0, 720899, 0, 0, 720940, 0, 0, 786435, 0, 0, 786476, 0, 0, 851971, 0, 0, 852012, 0, 0, 917507, 0, 0, 917548, 0, 0, 983043, 0, 0, 983084, 0, 0, 1048579, 0, 0, 1048620, 0, 0, 1114115, 0, 0, 1114156, 0, 0, 1179651, 0, 0, 1179692, 0, 0, 1245187, 0, 0, 1245228, 0, 0, 1310723, 0, 0, 1310764, 0, 0, 1376259, 0, 0, 1376300, 0, 0, 1441795, 0, 0, 1441836, 0, 0, 1507331, 0, 0, 1507372, 0, 0, 1572867, 0, 0, 1572908, 0, 0, 1638403, 0, 0, 1638444, 0, 0, 1703939, 0, 0, 1703980, 0, 0, 1769475, 0, 0, 1769516, 0, 0 )
+
+[node name="Player" parent="TileMap" instance=ExtResource( 2 )]
+position = Vector2( 100, 100 )
+
+[node name="Dinosaur" parent="TileMap" instance=ExtResource( 3 )]
+position = Vector2( 25, 50 )
