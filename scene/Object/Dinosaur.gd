@@ -1,25 +1,62 @@
 extends Node2D
 
 onready var sprite = $Sprite
+onready var timer = $Timer
 
-var waiting_time
+var quest_waiting_time
 var target_position
 var direction
-var walk_time = 2
+var walk_time = 0.1
 var face
+var arrived = false
+
+var do_thing_time_range = [0,1]
+var doing_things_rate = [100,0,0]
+enum THINGS_TODO {chitchat,quest,leave,wait,none}
+var current_doing = THINGS_TODO.none
+
+var selected_chitchat
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if face == 1:
 		sprite.scale.x = -sprite.scale.x
-	pass # Replace with function body.
+		
+func select_chitchat():
+	selected_chitchat = DialogManager.select_chitchat()
+	print(selected_chitchat)
+
+func select_thing_todo():
+	var selected_thing = Util.random_array(doing_things_rate)
+	match selected_thing:
+		0:
+			print("do chitchat")
+			current_doing = THINGS_TODO.chitchat
+			select_chitchat()
+		1:
+			print("do quest")
+		2:
+			print("leave")
+
+func set_waiting_time():
+	var wait_time = Util.randomf_range_array(do_thing_time_range)
+	timer.wait_time = wait_time
+	timer.start()
 
 func _process(delta):
-	if direction:
-		if (target_position-position).dot(direction)<0:
-			return
-		position += delta * direction
-	pass
+	if not arrived:
+		if direction:
+			if (target_position-position).dot(direction)<0:
+				arrived = true
+			else:
+				position += delta * direction
+	else:
+		match current_doing:
+			THINGS_TODO.wait:
+				pass
+			THINGS_TODO.none:
+				set_waiting_time()
+				current_doing = THINGS_TODO.wait
 
 func init_position(_position,_target,_face):
 	position = _position
@@ -28,4 +65,8 @@ func init_position(_position,_target,_face):
 	face = _face
 
 func init(_waiting_time):
-	waiting_time = _waiting_time
+	quest_waiting_time = _waiting_time
+
+
+func _on_Timer_timeout():
+	select_thing_todo()
