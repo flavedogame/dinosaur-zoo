@@ -18,6 +18,10 @@ _global_script_class_icons={
 run/main_scene="res://scene/MainGame.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Util="*res://scene/AutoLoad/Util.gd"
+
 [display]
 
 window/size/width=3072
