@@ -2,6 +2,7 @@ extends Node2D
 
 onready var sprite = $Sprite
 onready var timer = $Timer
+onready var mouth = $mouth
 
 var quest_waiting_time
 var target_position
@@ -21,9 +22,10 @@ var selected_chitchat
 func _ready():
 	if face == 1:
 		sprite.scale.x = -sprite.scale.x
+		mouth.position.x = -mouth.position.x
 		
 func select_chitchat():
-	selected_chitchat = DialogManager.select_chitchat()
+	selected_chitchat = DialogManager.select_chitchat(self)
 	print(selected_chitchat)
 
 func select_thing_todo():
@@ -42,7 +44,7 @@ func set_waiting_time():
 	var wait_time = Util.randomf_range_array(do_thing_time_range)
 	timer.wait_time = wait_time
 	timer.start()
-
+#todo: bug, if you click on close button, the time still pass? or is it just walk time too short?
 func _process(delta):
 	if not arrived:
 		if direction:
@@ -57,6 +59,12 @@ func _process(delta):
 			THINGS_TODO.none:
 				set_waiting_time()
 				current_doing = THINGS_TODO.wait
+
+func dialog_position():
+	var result = position + mouth.position
+	if face == 0:
+		result-=Vector2(200,0)
+	return result
 
 func init_position(_position,_target,_face):
 	position = _position

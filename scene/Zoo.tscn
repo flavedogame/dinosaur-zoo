@@ -30,13 +30,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="CoreGameManager" type="Node2D" parent="."]
 scale = Vector2( 4, 4 )
 script = ExtResource( 4 )
