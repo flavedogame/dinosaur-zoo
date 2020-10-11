@@ -1,6 +1,6 @@
 extends Node2D
 
-var dinosaur_generation_time = 0.1
+var dinosaur_generation_time = 1
 var dinosaur_waiting_time = 1
 
 var screen_size = Vector2(1024*3/4,600*3/4)

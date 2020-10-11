@@ -30,10 +30,12 @@ func load_chitchat():
 func select_chitchat(dianosaur):
 	var dialog_position = dianosaur.dialog_position()
 	var random_i = Util.randomi_array_size(chitchat_list)
-	show_chitchat(dialog_position, chitchat_list[random_i])
+	yield(show_chitchat(dialog_position, chitchat_list[random_i]),"completed")
 
 func show_chitchat(dialog_position, chat):
 	var dialog_instance = dialog.instance()
 	dialog_instance.init(dialog_position, chat)
 	var core_game_manager = Util.core_game_manager
 	core_game_manager.add_child(dialog_instance)
+	yield(dialog_instance.start_dialog(),"completed")
+	dialog_instance.queue_free()

@@ -49,3 +49,6 @@ margin_bottom = -10.0
 bbcode_enabled = true
 bbcode_text = "test"
 text = "test"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

@@ -5,6 +5,7 @@ onready var timer = $Timer
 onready var mouth = $mouth
 
 var quest_waiting_time
+var origin_position
 var target_position
 var direction
 var walk_time = 0.1
@@ -24,9 +25,13 @@ func _ready():
 		sprite.scale.x = -sprite.scale.x
 		mouth.position.x = -mouth.position.x
 		
+func leave():
+	current_doing = THINGS_TODO.leave		
+
 func select_chitchat():
-	selected_chitchat = DialogManager.select_chitchat(self)
-	print(selected_chitchat)
+	yield(DialogManager.select_chitchat(self),"completed")
+	leave()
+	
 
 func select_thing_todo():
 	var selected_thing = Util.random_array(doing_things_rate)
@@ -50,6 +55,8 @@ func _process(delta):
 		if direction:
 			if (target_position-position).dot(direction)<0:
 				arrived = true
+				if current_doing == THINGS_TODO.leave:
+					queue_free()
 			else:
 				position += delta * direction
 	else:
@@ -59,6 +66,9 @@ func _process(delta):
 			THINGS_TODO.none:
 				set_waiting_time()
 				current_doing = THINGS_TODO.wait
+			THINGS_TODO.leave:
+				arrived = false
+				target_position = origin_position
 
 func dialog_position():
 	var result = position + mouth.position
@@ -67,6 +77,7 @@ func dialog_position():
 	return result
 
 func init_position(_position,_target,_face):
+	origin_position = _position
 	position = _position
 	target_position = _target
 	direction = (target_position-position)/walk_time
