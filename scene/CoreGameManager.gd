@@ -1,7 +1,8 @@
 extends Node2D
 
-var dinosaur_generation_time = 0.1
-var dinosaur_waiting_time = 1
+var dinosaur_generation_time = 1
+var dinosaur_waiting_time = 5
+var level_max_dinosaur = 10
 
 var screen_size = Vector2(1024*3/4,600*3/4)
 var outside_rail_length = 4
@@ -23,6 +24,7 @@ var dinosaur = preload("res://scene/Object/Dinosaur.tscn")
 
 onready var timer = $Timer
 onready var dialogs = $TileMap/dialogs
+onready var quest_dialogs = $TileMap/quest_dialogs
 
 func _ready():
 	Util.core_game_manager = self
@@ -38,7 +40,6 @@ func set_dinosaur_position(dinosaur_instance):
 	var d_position
 	var d_origin
 	var d_face
-	dianosaur_invalid_position[random_position] = true
 	if random_position < top_count: #top visitor
 		var random_x =top_position_x_range[0] + random_position
 		d_position = Vector2(random_x,top_position_y)
@@ -59,14 +60,16 @@ func set_dinosaur_position(dinosaur_instance):
 	#var random_x = rng.randi_range (top_position_x_range[0], top_position_x_range[1])
 	#var d_position = Vector2(random_x,top_position_y)
 	
-	dinosaur_instance.init_position(Util.index_to_position(d_origin),Util.index_to_position(d_position),d_face,random_position)
+	dianosaur_invalid_position[random_position] = true
+	dinosaur_instance.init_position(d_origin,d_position,d_face,random_position)
 
 func on_dinosaur_left(position_index):
-	dianosaur_invalid_position[position_index] = false
+	dianosaur_invalid_position.erase(position_index)
 
 func _on_Timer_timeout():
-	var dinosaur_instance = dinosaur.instance()
-	dinosaur_instance.init(dinosaur_waiting_time)
-	set_dinosaur_position(dinosaur_instance)
-	add_child(dinosaur_instance)
+	if dianosaur_invalid_position.size() < level_max_dinosaur:
+		var dinosaur_instance = dinosaur.instance()
+		dinosaur_instance.init(dinosaur_waiting_time)
+		set_dinosaur_position(dinosaur_instance)
+		add_child(dinosaur_instance)
 	timer.wait_time = dinosaur_generation_time

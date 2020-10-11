@@ -8,17 +8,18 @@ var quest_waiting_time
 var origin_position
 var target_position
 var direction
-var walk_time = 0.1
+var walk_time = 1
 var face
 var position_index
 var arrived = false
 
 var do_thing_time_range = [0,1]
-var doing_things_rate = [100,0,0]
+var doing_things_rate = [100,100,0]
 enum THINGS_TODO {chitchat,quest,leave,wait,none}
 var current_doing = THINGS_TODO.none
 
-var selected_chitchat
+var current_dialog
+var selected_quest
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,11 +30,64 @@ func _ready():
 func leave():
 	current_doing = THINGS_TODO.leave	
 	Events.emit_signal("dinosaur_left",position_index)	
+	print("current_dialog ",current_dialog)
+	if current_dialog:
+		current_dialog.queue_free()
+		current_dialog = null
+
+func finish_quest():
+	print("finish quest")
+	if current_doing == THINGS_TODO.quest:
+		current_doing = THINGS_TODO.none
+		Events.disconnect("test_quest",self,"test_quest")
+		current_dialog.queue_free()
+		leave()
+
+func check_if_position_is_close(quest_args):
+	var monkey_position_index = quest_args.monkey_position_index
+	var dinosaur_position_index = Util.position_to_index(position)
+	var distance = monkey_position_index.distance_to(dinosaur_position_index)
+	print("distance ",distance)
+	if distance <= 10:
+		return true
+	return false
+
+func test_quest(quest_name, quest_args):
+	#print(quest_name," ",quest_args)
+	if quest_name == selected_quest.name:
+		match quest_name:
+			"come_close":
+				if check_if_position_is_close(quest_args):
+					finish_quest()
+			"spin":
+				if check_if_position_is_close(quest_args):
+					finish_quest()
+		
+
+func select_quest():
+	selected_quest = QuestManager.select_quest(self)
+	
+	current_dialog = DialogManager.select_dialog(self,selected_quest)
+	#print(current_dialog)
+	show_dialog(current_dialog, Util.core_game_manager.quest_dialogs)
+	
+	Events.connect("test_quest",self,"test_quest")
+	#don't know why use timer here will make queue_free for dialog not work
+	#yield(timer, "timeout")
+	yield(get_tree().create_timer(quest_waiting_time), "timeout")
+	print("failed quest")
+	finish_quest()
 
 func select_chitchat():
-	yield(DialogManager.select_chitchat(self),"completed")
+	var dialog_instance = DialogManager.select_chitchat(self)
+	yield(show_dialog(dialog_instance),"completed")
+	
+	dialog_instance.queue_free()
 	leave()
 	
+func show_dialog(dialog_instance,parent = Util.core_game_manager.dialogs):
+	parent.add_child(dialog_instance)
+	yield(dialog_instance.start_dialog(),"completed")
 
 func select_thing_todo():
 	var selected_thing = Util.random_array(doing_things_rate)
@@ -44,8 +98,11 @@ func select_thing_todo():
 			select_chitchat()
 		1:
 			print("do quest")
+			current_doing = THINGS_TODO.quest
+			select_quest()
 		2:
 			print("leave")
+			current_doing = THINGS_TODO.leave
 
 func set_waiting_time():
 	var wait_time = Util.randomf_range_array(do_thing_time_range)
@@ -71,6 +128,7 @@ func _process(delta):
 			THINGS_TODO.leave:
 				arrived = false
 				target_position = origin_position
+				direction = (target_position-position)/walk_time
 
 func dialog_position():
 	var result = position + mouth.position
@@ -79,9 +137,10 @@ func dialog_position():
 	return result
 
 func init_position(_position,_target,_face,_position_index):
-	origin_position = _position
-	position = _position
-	target_position = _target
+	origin_position = Util.index_to_position(_position)
+	position = Util.index_to_position(_position)
+	
+	target_position = Util.index_to_position(_target)
 	direction = (target_position-position)/walk_time
 	face = _face
 	position_index = _position_index

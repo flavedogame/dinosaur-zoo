@@ -56,6 +56,8 @@ __meta__ = {
 
 [node name="dialogs" type="Node2D" parent="CoreGameManager/TileMap"]
 
+[node name="quest_dialogs" type="Node2D" parent="CoreGameManager/TileMap"]
+
 [node name="Timer" type="Timer" parent="CoreGameManager"]
 wait_time = 0.001
 autostart = true

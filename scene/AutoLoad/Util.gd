@@ -10,6 +10,10 @@ func _ready():
 
 func index_to_position(index):
 	return index*16
+	
+func position_to_index(index):
+	var res = Vector2(floor(index.x/16),floor(index.y/16))
+	return res
 
 func sum_array(array):
 	var sum = 0.0
@@ -43,3 +47,19 @@ func random_array(array):
 			return i
 	push_error("random array didn't return correctly")
 	return 0
+
+
+func load_json(file_path):
+	var file = File.new()
+	#var file_path = '%s/%s.json' % [dialogues_folder, id]
+	var error = file.open(file_path, File.READ)
+	if error != OK:
+		printerr("Couldn't open file for read: %s, error code: %s." % [file_path, error])
+		return
+	var json = file.get_as_text()
+	var res = JSON.parse(json).result
+	error = JSON.parse(json).error
+	if error != OK:
+		print(JSON.parse(json).error_string)
+	file.close()
+	return res

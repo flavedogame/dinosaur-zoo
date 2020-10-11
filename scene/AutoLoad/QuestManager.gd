@@ -1,16 +1,21 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var normal_list
 
+var quest_folder = "res://resources/quest/"
+var dialog = preload("res://scene/UI/Dialog.tscn")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	load_chitchat()
+	
+func load_chitchat():
+	var file_path = '%s/%s.json' % [quest_folder, "normal"]
+	normal_list = Util.load_json(file_path)
+
+func select_quest(dianosaur):
+	var random_i = Util.randomi_array_size(normal_list)
+	return normal_list[random_i]
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+

@@ -3,17 +3,23 @@ extends Control
 var dialog_wait_time = 3
 var dialog
 var current_dialog
+var is_quest
 onready var label = $ColorRect/RichTextLabel
 onready var panel = $ColorRect
+onready var main_panel = $ColorRect/ColorRect
 onready var timer = $Timer
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	if is_quest:
+		main_panel.color = Color("fff8c3")
+	else:
+		main_panel.color = Color("d6ffc3")
 	#label.bbcode_text = dialog["first"].content
 	pass
-func init(_position, _dialog):
+func init(_position, _dialog,_is_quest):
 	dialog = _dialog
 	rect_position = _position
+	is_quest = _is_quest
 	
 func start_dialog():
 	current_dialog = dialog["first"]

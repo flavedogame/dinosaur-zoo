@@ -1,0 +1,79 @@
+[
+    {
+        "name":"come_close",
+        "first": {
+            "content": "Hey monkey, come here!",
+            "next": "0"
+        },
+        "0": {
+            "content": "Let me see you closely!",
+        },
+        "completed": [
+            {
+                "first": 
+                {
+                    "content": "That's my boy",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Good Mikken!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Wow I can see its hair clearly from here",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Hey he really comes!",
+                    "next": "0"
+                },
+                "0": 
+                {
+                    "content": "Maybe I can ask him to do more..",
+                },
+            },
+
+        ]
+    },
+    {
+        "name":"spin",
+        "first": {
+            "content": "Hey monkey, spin!",
+            "next": "0"
+        },
+        "0": {
+            "content": "Just spin! Can you do that?",
+            "next": "1"
+        },
+        "1": {
+            "content": "Rotate! Make a circle? Do something!",
+        },
+        "completed": [
+            {
+                "first": 
+                {
+                    "content": "That's my boy",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Good Mikken!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Wow he really did that!",
+                },
+            },
+
+        ]
+    },
+]
