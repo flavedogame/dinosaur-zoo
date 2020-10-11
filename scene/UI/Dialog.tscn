@@ -51,4 +51,4 @@ bbcode_text = "test"
 text = "test"
 
 [node name="Timer" type="Timer" parent="."]
-one_shot = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
