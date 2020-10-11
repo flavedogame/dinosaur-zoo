@@ -10,6 +10,7 @@ var target_position
 var direction
 var walk_time = 0.1
 var face
+var position_index
 var arrived = false
 
 var do_thing_time_range = [0,1]
@@ -26,7 +27,8 @@ func _ready():
 		mouth.position.x = -mouth.position.x
 		
 func leave():
-	current_doing = THINGS_TODO.leave		
+	current_doing = THINGS_TODO.leave	
+	Events.emit_signal("dinosaur_left",position_index)	
 
 func select_chitchat():
 	yield(DialogManager.select_chitchat(self),"completed")
@@ -73,15 +75,16 @@ func _process(delta):
 func dialog_position():
 	var result = position + mouth.position
 	if face == 0:
-		result-=Vector2(200,0)
+		result-=Vector2(140,0)
 	return result
 
-func init_position(_position,_target,_face):
+func init_position(_position,_target,_face,_position_index):
 	origin_position = _position
 	position = _position
 	target_position = _target
 	direction = (target_position-position)/walk_time
 	face = _face
+	position_index = _position_index
 
 func init(_waiting_time):
 	quest_waiting_time = _waiting_time

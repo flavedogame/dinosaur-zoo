@@ -36,6 +36,6 @@ func show_chitchat(dialog_position, chat):
 	var dialog_instance = dialog.instance()
 	dialog_instance.init(dialog_position, chat)
 	var core_game_manager = Util.core_game_manager
-	core_game_manager.add_child(dialog_instance)
+	core_game_manager.dialogs.add_child(dialog_instance)
 	yield(dialog_instance.start_dialog(),"completed")
 	dialog_instance.queue_free()

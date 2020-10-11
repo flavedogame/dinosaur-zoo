@@ -1,6 +1,6 @@
 extends Node2D
 
-var dinosaur_generation_time = 1
+var dinosaur_generation_time = 0.1
 var dinosaur_waiting_time = 1
 
 var screen_size = Vector2(1024*3/4,600*3/4)
@@ -15,24 +15,30 @@ var left_position_x = outside_rail_length_side
 var left_origin_position_x = -1
 var right_position_x = screen_size.x/tile_size - outside_rail_length_side
 var right_origin_position_x = screen_size.x/tile_size+1
+var dianosaur_invalid_position = {}
 
 var task_type
 
 var dinosaur = preload("res://scene/Object/Dinosaur.tscn")
 
 onready var timer = $Timer
+onready var dialogs = $TileMap/dialogs
 
 func _ready():
 	Util.core_game_manager = self
+	Events.connect("dinosaur_left",self,"on_dinosaur_left")
 
 func set_dinosaur_position(dinosaur_instance):
 	var top_count = top_position_x_range[1]- top_position_x_range[0]+1
 	var side_count = side_position_y_range[1]- side_position_y_range[0]+1
 	var total_count = top_count+side_count*2
-	var random_position = Util.rng.randi_range(0,total_count)
+	var random_position = Util.randomi_size_with_invalid_positions(total_count,dianosaur_invalid_position)
+	if random_position <0:
+		return
 	var d_position
 	var d_origin
 	var d_face
+	dianosaur_invalid_position[random_position] = true
 	if random_position < top_count: #top visitor
 		var random_x =top_position_x_range[0] + random_position
 		d_position = Vector2(random_x,top_position_y)
@@ -53,7 +59,10 @@ func set_dinosaur_position(dinosaur_instance):
 	#var random_x = rng.randi_range (top_position_x_range[0], top_position_x_range[1])
 	#var d_position = Vector2(random_x,top_position_y)
 	
-	dinosaur_instance.init_position(Util.index_to_position(d_origin),Util.index_to_position(d_position),d_face)
+	dinosaur_instance.init_position(Util.index_to_position(d_origin),Util.index_to_position(d_position),d_face,random_position)
+
+func on_dinosaur_left(position_index):
+	dianosaur_invalid_position[position_index] = false
 
 func _on_Timer_timeout():
 	var dinosaur_instance = dinosaur.instance()
