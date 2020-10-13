@@ -1,5 +1,7 @@
 extends Control
 
+var parent_node
+
 var dialog_wait_time = 3
 var dialog
 var current_dialog
@@ -19,6 +21,11 @@ func _ready():
 func init(_position, _dialog,_is_quest):
 	dialog = _dialog
 	rect_position = _position
+	is_quest = _is_quest
+	
+func init_with_parent_node(_parent_node, _dialog,_is_quest):
+	dialog = _dialog
+	parent_node = _parent_node
 	is_quest = _is_quest
 	
 func start_dialog():
@@ -162,7 +169,9 @@ func check_newlines(string):
 		pause_array = new_pause_array
 		
 func show_one_dialog_with_type_writing():
-	
+	if parent_node:
+		rect_position = parent_node.get(current_dialog['speaker']).position
+		panel.rect_size = parent_node.get_dialog_size()
 	#hide_name(name_left)
 	#hide_name(name_right)
 	
@@ -212,10 +221,17 @@ func show_one_dialog_with_type_writing():
 	timer.wait_time =dialog_wait_time
 	timer.start()
 	yield(timer,"timeout")
+	
+	yield(check_trigger(),"completed")
 #	elif enable_continue_indicator: # If typewriter effect is disabled check if the ContinueIndicator should be displayed
 #		continue_indicator.show()
 #		animations.play('Continue_Indicator')
 
+func check_trigger():
+	if current_dialog.has("trigger"):
+		var trigger = current_dialog['trigger']
+		yield(parent_node.trigger(trigger),"completed")
+	yield(get_tree(), 'idle_frame')
 
 func _on_Timer_timeout():
 	pass

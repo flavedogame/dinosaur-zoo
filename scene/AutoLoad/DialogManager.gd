@@ -2,7 +2,7 @@ extends Node
 
 var chitchat_list
 
-var dialog_folder = "res://resources/dialog/"
+var dialog_folder = "res://resources/dialog"
 var dialog = preload("res://scene/UI/Dialog.tscn")
 
 func _ready():
@@ -22,4 +22,10 @@ func select_dialog(dianosaur,chat):
 	var dialog_position = dianosaur.dialog_position()
 	var dialog_instance = dialog.instance()
 	dialog_instance.init(dialog_position, chat,is_quest)
+	return dialog_instance
+
+func select_dialog_multiple(_parent_node, chat):
+	var is_quest = chat.has("name")
+	var dialog_instance = dialog.instance()
+	dialog_instance.init_with_parent_node(_parent_node, chat,is_quest)
 	return dialog_instance

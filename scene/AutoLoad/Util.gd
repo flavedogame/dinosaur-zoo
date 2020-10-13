@@ -51,7 +51,6 @@ func random_array(array):
 
 func load_json(file_path):
 	var file = File.new()
-	#var file_path = '%s/%s.json' % [dialogues_folder, id]
 	var error = file.open(file_path, File.READ)
 	if error != OK:
 		printerr("Couldn't open file for read: %s, error code: %s." % [file_path, error])

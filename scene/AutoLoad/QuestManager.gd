@@ -3,7 +3,7 @@ extends Node
 
 var normal_list
 
-var quest_folder = "res://resources/quest/"
+var quest_folder = "res://resources/quest"
 var dialog = preload("res://scene/UI/Dialog.tscn")
 
 func _ready():
