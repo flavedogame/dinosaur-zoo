@@ -22,9 +22,10 @@ func _ready():
 		main_panel.color = Color("d6ffc3")
 	#label.bbcode_text = dialog["first"].content
 	pass
-func init(_position, _dialog,_is_quest):
+func init(_position, _dialog,_is_quest,dialog_size):
 	dialog = _dialog
 	rect_position = _position
+	rect_size = dialog_size
 	is_quest = _is_quest
 	
 func init_with_parent_node(_parent_node, _dialog,_is_quest):

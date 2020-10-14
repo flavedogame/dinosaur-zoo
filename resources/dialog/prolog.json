@@ -2,7 +2,8 @@
         "first": {
             "speaker":"Alex",
             "content": "This time travel is almost end..",
-            "next": "0"
+            
+            "after_trigger":"end"
         },
         "0": {
             "speaker":"Alex",

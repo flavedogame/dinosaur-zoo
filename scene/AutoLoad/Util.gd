@@ -3,6 +3,8 @@ extends Node
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 var tile_size = 16
 
+var visitor_dialog_size = Vector2(400,220)
+
 var core_game_manager
 
 func _ready():

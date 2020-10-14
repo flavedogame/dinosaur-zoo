@@ -23,8 +23,8 @@ var task_type
 var dinosaur = preload("res://scene/Object/Dinosaur.tscn")
 
 onready var timer = $Timer
-onready var dialogs = $TileMap/dialogs
-onready var quest_dialogs = $TileMap/quest_dialogs
+onready var dialogs = $dialogs
+onready var quest_dialogs = $quest_dialogs
 
 func _ready():
 	Util.core_game_manager = self
@@ -71,5 +71,5 @@ func _on_Timer_timeout():
 		var dinosaur_instance = dinosaur.instance()
 		dinosaur_instance.init(dinosaur_waiting_time)
 		set_dinosaur_position(dinosaur_instance)
-		add_child(dinosaur_instance)
+		get_parent().get_parent().add_child(dinosaur_instance)
 	timer.wait_time = dinosaur_generation_time

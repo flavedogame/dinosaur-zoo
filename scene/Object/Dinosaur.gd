@@ -131,9 +131,9 @@ func _process(delta):
 				direction = (target_position-position)/walk_time
 
 func dialog_position():
-	var result = position + mouth.position
+	var result = mouth.get_global_position()
 	if face == 0:
-		result-=Vector2(140,0)
+		result-=Vector2(Util.visitor_dialog_size.x,0)
 	return result
 
 func init_position(_position,_target,_face,_position_index):
