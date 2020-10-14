@@ -10,8 +10,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -1536.0
 margin_top = -900.0
-margin_right = -1336.0
-margin_bottom = -830.0
+margin_right = -936.0
+margin_bottom = -690.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -20,8 +20,6 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -60.0
-margin_bottom = -20.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -43,10 +41,10 @@ __meta__ = {
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_left = 10.0
+margin_top = 9.15909
+margin_right = -10.0
+margin_bottom = -10.8409
 custom_fonts/mono_font = ExtResource( 2 )
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true

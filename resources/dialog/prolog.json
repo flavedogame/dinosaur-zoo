@@ -18,45 +18,51 @@
         "2": {
             "speaker":"Alex",
             "content": "I'll destroy this comet now!",
-            "next": "0",
+            "next": "3",
             "trigger":"destroy_comet"
         },
         "3": {
             "speaker":"Alex",
             "content": "YES! I SAVED a planet! That's what I want to do!",
-            "next": "0"
+            "next": "4"
         },
         "4": {
+            "speaker":"Alex",
             "content": "I'm a hero to this planet! Wait..",
-            "next": "0"
+            "next": "5"
         },
         "5": {
+            "speaker":"Alex",
             "content": "Is this planet.. EARTH???!!!",
-            "next": "0"
+            "next": "6"
         },
         "6": {
-            "content": "ROBOT:'It is the earth in the Late Cretaceous.",
-            "next": "0"
+            "speaker":"Spaceship",
+            "content": "Spaceship:'It is the earth in the Late Cretaceous.",
+            "next": "7"
         },
         "7": {
+            "speaker":"Alex",
             "content": "Oh what did I do.. did I save.. DINOSAURS?",
-            "next": "0"
+            "next": "8"
         },
         "8": {
-            "content": "ROBOT: 'This is the end of your time travel.'",
-            "next": "0"
+            "speaker":"Spaceship",
+            "content": "Spaceship: 'This is the end of your time travel.'",
+            "next": "9"
         },
         "9": {
-            "content": "ROBOT: 'Sending you back...Your bahavior would affect things in your timeline'",
-            "next": "0"
+            "speaker":"Spaceship",
+            "content": "Spaceship: 'Sending you back...Your bahavior would affect things in your timeline'",
+            "next": "10"
         },
         "10": {
+            "speaker":"Alex",
             "content": "NOOOOOOO!!",
-            "next": "0"
         },
         "11": {
             "content": "You are sending back to your time on the earth, and because of you saved dinosaurs from the comet, they become the master of the earth.",
-            "next": "0"
+            "next": "12"
         },
         "12": {
             "content": "You are captured by them, luckily, they think you look special, so instead of eating you, they put you into a zoo.",

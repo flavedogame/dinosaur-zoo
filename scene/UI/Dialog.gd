@@ -2,10 +2,11 @@ extends Control
 
 var parent_node
 
-var dialog_wait_time = 3
+var dialog_wait_time = 2
 var dialog
 var current_dialog
 var is_quest
+var one_dialog_finished
 onready var label = $ColorRect/RichTextLabel
 onready var panel = $ColorRect
 onready var main_panel = $ColorRect/ColorRect
@@ -27,9 +28,15 @@ func init_with_parent_node(_parent_node, _dialog,_is_quest):
 	dialog = _dialog
 	parent_node = _parent_node
 	is_quest = _is_quest
+	current_dialog = dialog["first"]
+	var speaker_name = current_dialog['speaker']
+	var speaker = parent_node.get(current_dialog['speaker'])
+	var g_position = speaker.get_global_position()
+	rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
 	
 func start_dialog():
 	current_dialog = dialog["first"]
+	rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
 	yield(show_one_dialog(),"completed")
 	
 	
@@ -50,7 +57,7 @@ func next():
 	
 
 #type writing
-var wait_time : float = 0.01 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
+var wait_time : float = 0.05 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
 var pause_time : float = 0.4 # Duration of each pause when the typewriter effect is active.
 var pause_char : String = '|' # The character used in the JSON file to define where pauses should be. If you change this you'll need to edit all your dialogue files.
 var newline_char : String = '@' # The character used in the JSON file to break lines. If you change this you'll need to edit all your dialogue files.
@@ -170,8 +177,11 @@ func check_newlines(string):
 		
 func show_one_dialog_with_type_writing():
 	if parent_node:
-		rect_position = parent_node.get(current_dialog['speaker']).position
-		panel.rect_size = parent_node.get_dialog_size()
+		var speaker_name = current_dialog['speaker']
+		var speaker = parent_node.get(current_dialog['speaker'])
+		var g_position = speaker.get_global_position()
+		rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
+		#panel.rect_size = parent_node.get_dialog_size()
 	#hide_name(name_left)
 	#hide_name(name_right)
 	
@@ -201,7 +211,6 @@ func show_one_dialog_with_type_writing():
 		
 		#timer.start()
 		while label.visible_characters < number_characters:
-			
 			if paused:
 				update_pause()
 				return # If in pause, ignore the rest of the function.
@@ -261,11 +270,21 @@ func _on_Timer_timeout():
 #		return
 		
 #return if typewriting has already stopped
+
+func skip_dialog():
+	stop_typewriting()
+
 func stop_typewriting():
 	if typewriting_finished:
 		return true
+#		if one_dialog_finished:
+#			return true
+#		else:
+#			one_dialog_finished = true
+#			timer.wait_time = 0
+#			return false
 	typewriting_finished = true
-	timer.stop()
+	#timer.stop()
 	label.visible_characters = number_characters
 	return false
 
