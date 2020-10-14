@@ -2,6 +2,7 @@ extends Control
 
 var parent_node
 
+
 signal skip_dialog_signal
 
 var dialog_wait_time = 2
