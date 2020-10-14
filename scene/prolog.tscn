@@ -54,15 +54,18 @@ __meta__ = {
 [node name="prolog_scene" type="Node2D" parent="."]
 scale = Vector2( 4, 4 )
 
+[node name="missile" type="Node2D" parent="prolog_scene"]
+position = Vector2( 205.418, 370.965 )
+scale = Vector2( 4, 4 )
+
+[node name="missile" type="Sprite" parent="prolog_scene/missile"]
+rotation = 1.5708
+texture = ExtResource( 3 )
+
 [node name="earth_tiny" type="Sprite" parent="prolog_scene"]
 position = Vector2( 58.2712, 212.868 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
-
-[node name="missile" type="Sprite" parent="prolog_scene"]
-position = Vector2( 205.418, 370.965 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 3 )
 
 [node name="spaceship" type="Sprite" parent="prolog_scene"]
 position = Vector2( 199.787, 361.519 )

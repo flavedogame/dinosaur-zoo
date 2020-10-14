@@ -35,16 +35,25 @@ func load_prolog():
 func get_dialog_size():
 	return Vector2(300,100)
 
+func end():
+	Events.emit_signal("finish_prolog")
+
 func trigger(trigger_name):
 	match trigger_name:
 		"comet_appear":
 			yield(comet_appear(),"completed")
 		"destroy_comet":
 			yield(destroy_comet(),"completed")
+		"end":
+			end()
+	yield(get_tree(), 'idle_frame')
 
 func destroy_comet():
-	var angle_to = rad2deg(missile.position.angle_to(comet.position))
-	missile.rotation_degrees += angle_to
+#	look_at()
+#	var angle_to = rad2deg(missile.position.angle_to(comet.position))
+#	print(missile.position.angle_to(comet.position))
+#	print(angle_to)
+	missile.look_at(comet.get_global_position())
 	tween.interpolate_property(
 			missile, 
 			"position", 
@@ -67,7 +76,7 @@ func comet_appear():
 			Tween.TRANS_QUART, Tween.EASE_OUT)
 			
 	tween.start()
-	yield(get_tree().create_timer(2), "timeout")
+	yield(get_tree().create_timer(1), "timeout")
 #	yield(tween,"tween_completed")
 #	tween.interpolate_property(
 #			comet, 

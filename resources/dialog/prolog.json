@@ -8,9 +8,9 @@
             "speaker":"Alex",
             "content": "Though it is fun, I actually expected something more special. Like..",
             "next": "1",
-            "trigger":"comet_appear"
         },
         "1": {
+            "trigger":"comet_appear",
             "speaker":"Alex",
             "content": "OMG A COMET IS ATTACKING A PLANET!!",
             "next": "2"
@@ -19,46 +19,53 @@
             "speaker":"Alex",
             "content": "I'll destroy this comet now!",
             "next": "3",
-            "trigger":"destroy_comet"
         },
         "3": {
+            "trigger":"destroy_comet",
             "speaker":"Alex",
             "content": "YES! I SAVED a planet! That's what I want to do!",
             "next": "4"
         },
         "4": {
             "speaker":"Alex",
-            "content": "I'm a hero to this planet! Wait..",
-            "next": "5"
+            "content": "I'm a hero to this planet! I'll own this planet and everything on it! I'll be a billionare!",
+            "next": "4-1"
         },
-        "5": {
+        "4-1": {
             "speaker":"Alex",
-            "content": "Is this planet.. EARTH???!!!",
+            "content": "Spaceship, tell me the infomation about this planet!",
             "next": "6"
         },
         "6": {
             "speaker":"Spaceship",
-            "content": "Spaceship:'It is the earth in the Late Cretaceous.",
+            "content": "Spaceship:@'[i]It is the Earth in the Late Cretaceous.[/i]'",
+            "next": "6-1"
+        },
+        
+        "6-1": {
+            "speaker":"Alex",
+            "content": "Ear..| EARTH???!!!",
             "next": "7"
         },
         "7": {
             "speaker":"Alex",
-            "content": "Oh what did I do.. did I save.. DINOSAURS?",
+            "content": "Oh what did I do.. did I save..| DINOSAURS?",
             "next": "8"
         },
         "8": {
             "speaker":"Spaceship",
-            "content": "Spaceship: 'This is the end of your time travel.'",
+            "content": "Spaceship: @'[i]This is the end of your time travel.[/i]'",
             "next": "9"
         },
         "9": {
             "speaker":"Spaceship",
-            "content": "Spaceship: 'Sending you back...Your bahavior would affect things in your timeline'",
+            "content": "Spaceship: @'[i]Sending you back...[color=red]Your bahavior would affect the world in your timeline[/color][/i]'",
             "next": "10"
         },
         "10": {
             "speaker":"Alex",
             "content": "NOOOOOOO!!",
+            "after_trigger":"end"
         },
         "11": {
             "content": "You are sending back to your time on the earth, and because of you saved dinosaurs from the comet, they become the master of the earth.",

@@ -2,6 +2,8 @@ extends Control
 
 var parent_node
 
+signal skip_dialog_signal
+
 var dialog_wait_time = 2
 var dialog
 var current_dialog
@@ -11,6 +13,7 @@ onready var label = $ColorRect/RichTextLabel
 onready var panel = $ColorRect
 onready var main_panel = $ColorRect/ColorRect
 onready var timer = $Timer
+var click_to_continue = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if is_quest:
@@ -33,19 +36,27 @@ func init_with_parent_node(_parent_node, _dialog,_is_quest):
 	var speaker = parent_node.get(current_dialog['speaker'])
 	var g_position = speaker.get_global_position()
 	rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
+	click_to_continue = true
 	
 func start_dialog():
 	current_dialog = dialog["first"]
-	rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
+#	if parent_node:
+#		rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
 	yield(show_one_dialog(),"completed")
 	
 	
 func show_one_dialog():
+	
+	yield(check_trigger(),"completed")
 	yield(show_one_dialog_with_type_writing(),"completed")
 #	label.bbcode_text = current_dialog.content
 #	timer.wait_time = dialog_wait_time
 #	timer.start()
 #	yield(timer,"timeout")
+	if click_to_continue:
+		
+		yield(self,"skip_dialog_signal")
+	yield(check_after_trigger(),"completed")
 	yield(next(),"completed")
 
 func next():
@@ -57,7 +68,7 @@ func next():
 	
 
 #type writing
-var wait_time : float = 0.05 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
+var wait_time : float = 0.03 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
 var pause_time : float = 0.4 # Duration of each pause when the typewriter effect is active.
 var pause_char : String = '|' # The character used in the JSON file to define where pauses should be. If you change this you'll need to edit all your dialogue files.
 var newline_char : String = '@' # The character used in the JSON file to break lines. If you change this you'll need to edit all your dialogue files.
@@ -176,6 +187,7 @@ func check_newlines(string):
 		pause_array = new_pause_array
 		
 func show_one_dialog_with_type_writing():
+	yield(get_tree(), 'idle_frame')
 	if parent_node:
 		var speaker_name = current_dialog['speaker']
 		var speaker = parent_node.get(current_dialog['speaker'])
@@ -212,12 +224,12 @@ func show_one_dialog_with_type_writing():
 		#timer.start()
 		while label.visible_characters < number_characters:
 			if paused:
-				update_pause()
-				return # If in pause, ignore the rest of the function.
+				yield(update_pause(),"completed")
+				 # If in pause, ignore the rest of the function.
 
 			if pause_array.size() > 0: # Check if the phrase have any pauses left.
 				if label.visible_characters == pause_array[pause_index]: # pause_char == index of the last character before pause.
-					timer.wait_time = pause_time #* wait_time * 10
+					#timer.wait_time = pause_time #* wait_time * 10
 					paused = true
 				else:
 					label.visible_characters += 1
@@ -227,11 +239,11 @@ func show_one_dialog_with_type_writing():
 			timer.start()
 			yield(timer,"timeout")
 	typewriting_finished = true
-	timer.wait_time =dialog_wait_time
-	timer.start()
-	yield(timer,"timeout")
-	
-	yield(check_trigger(),"completed")
+	if not click_to_continue:
+		timer.wait_time =dialog_wait_time
+		timer.start()
+		yield(timer,"timeout")
+	yield(get_tree(), 'idle_frame')
 #	elif enable_continue_indicator: # If typewriter effect is disabled check if the ContinueIndicator should be displayed
 #		continue_indicator.show()
 #		animations.play('Continue_Indicator')
@@ -239,6 +251,12 @@ func show_one_dialog_with_type_writing():
 func check_trigger():
 	if current_dialog.has("trigger"):
 		var trigger = current_dialog['trigger']
+		yield(parent_node.trigger(trigger),"completed")
+	yield(get_tree(), 'idle_frame')
+	
+func check_after_trigger():
+	if current_dialog.has("after_trigger"):
+		var trigger = current_dialog['after_trigger']
 		yield(parent_node.trigger(trigger),"completed")
 	yield(get_tree(), 'idle_frame')
 
@@ -276,6 +294,7 @@ func skip_dialog():
 
 func stop_typewriting():
 	if typewriting_finished:
+		emit_signal("skip_dialog_signal")
 		return true
 #		if one_dialog_finished:
 #			return true
@@ -296,6 +315,7 @@ func update_pause():
 		pause_index = 0
 		
 	paused = false
-	timer.wait_time = wait_time
-	timer.start()
+	yield(get_tree().create_timer(pause_time), "timeout")
+#	timer.wait_time = wait_time
+#	timer.start()
 

@@ -55,8 +55,10 @@ __meta__ = {
 }
 
 [node name="dialogs" type="Node2D" parent="CoreGameManager/TileMap"]
+scale = Vector2( 0.25, 0.25 )
 
 [node name="quest_dialogs" type="Node2D" parent="CoreGameManager/TileMap"]
+scale = Vector2( 0.25, 0.25 )
 
 [node name="Timer" type="Timer" parent="CoreGameManager"]
 wait_time = 0.001
