@@ -19,10 +19,11 @@ func select_chitchat(dianosaur):
 
 func select_dialog(dianosaur,chat):
 	var is_quest = chat.has("name")
+	var quest_param = {"quest_time":dianosaur.quest_waiting_time} if is_quest else null
 	var dialog_position = dianosaur.dialog_position()
 	var dialog_instance = dialog.instance()
 	var dialog_size = Util.visitor_dialog_size
-	dialog_instance.init(dialog_position, chat,is_quest, dialog_size)
+	dialog_instance.init(dialog_position, chat,quest_param, dialog_size)
 	return dialog_instance
 
 func select_dialog_multiple(_parent_node, chat):

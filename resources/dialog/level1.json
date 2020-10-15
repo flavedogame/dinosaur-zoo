@@ -4,7 +4,9 @@
             
             "pivot":[0,0],
             "content": "You are sending back to your time on the earth, and because of you saved dinosaurs from the comet, they become the master of the earth.",
-            "next": "12"
+            "ignext": "12",
+            
+            "after_trigger":"end"
         },
         "12": {
             "speaker":"Center",

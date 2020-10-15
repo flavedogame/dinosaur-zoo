@@ -1,0 +1,11 @@
+[
+    {
+        "level_length":60,
+        "dinosaur_generation_time":10,
+        "dinosaur_waiting_time":5,
+        "level_max_dinosaur":10,
+        "dinosaur_quest_waiting_time":5,
+        "dinosaur_action_interval_range":[2,6]
+    }
+    
+]

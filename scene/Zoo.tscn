@@ -55,12 +55,8 @@ position = Vector2( 379.757, 242.104 )
 [node name="dialog" type="Node2D" parent="zoo_scene/TileMap"]
 scale = Vector2( 0.25, 0.25 )
 
-[node name="dialog" type="Control" parent="zoo_scene/TileMap/dialog"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="quest" type="Node2D" parent="zoo_scene/TileMap"]
+scale = Vector2( 0.25, 0.25 )
 
 [node name="Tween" type="Tween" parent="."]
 

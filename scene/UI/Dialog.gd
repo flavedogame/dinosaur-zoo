@@ -13,24 +13,36 @@ var dialog
 var current_dialog
 var is_quest
 var one_dialog_finished
+var quest_time
 onready var label = $ColorRect/RichTextLabel
 onready var panel = $ColorRect
 onready var main_panel = $ColorRect/ColorRect
 onready var timer = $Timer
+onready var progress_bar = $ColorRect/ColorRect/ProgressBar
 var click_to_continue = false
+var current_time = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if is_quest:
 		main_panel.color = Color("fff8c3")
+		progress_bar.visible = true
 	else:
 		main_panel.color = Color("d6ffc3")
 	#label.bbcode_text = dialog["first"].content
 	pass
-func init(_position, _dialog,_is_quest,dialog_size):
+	
+func _process(delta):
+	current_time+=delta
+	if progress_bar and is_quest:
+		progress_bar.value = current_time/quest_time
+	
+func init(_position, _dialog,_quest_params,dialog_size):
 	dialog = _dialog
 	rect_position = _position
 	rect_size = dialog_size
-	is_quest = _is_quest
+	is_quest = _quest_params!=null
+	if is_quest:
+		quest_time = _quest_params.quest_time
 	
 func update_pivot():
 	var pivot = current_dialog.get("pivot",[0,-1])
@@ -204,7 +216,7 @@ func show_one_dialog_with_type_writing():
 		var speaker = parent_node.get(current_dialog['speaker'])
 		var g_position = speaker.get_global_position()
 		rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
-	update_pivot()
+		update_pivot()
 		#panel.rect_size = parent_node.get_dialog_size()
 	#hide_name(name_left)
 	#hide_name(name_right)

@@ -14,7 +14,7 @@ var position_index
 var arrived = false
 
 var do_thing_time_range = [0,1]
-var doing_things_rate = [100,100,0]
+var doing_things_rate = [0,100,0]
 enum THINGS_TODO {chitchat,quest,leave,wait,none}
 var current_doing = THINGS_TODO.none
 
@@ -69,7 +69,7 @@ func select_quest():
 	
 	current_dialog = DialogManager.select_dialog(self,selected_quest)
 	#print(current_dialog)
-	show_dialog(current_dialog, Util.core_game_manager.quest_dialogs)
+	show_dialog(current_dialog, Util.visitor_quest_parent)
 	
 	Events.connect("test_quest",self,"test_quest")
 	#don't know why use timer here will make queue_free for dialog not work
@@ -85,7 +85,7 @@ func select_chitchat():
 	dialog_instance.queue_free()
 	leave()
 	
-func show_dialog(dialog_instance,parent = Util.core_game_manager.dialogs):
+func show_dialog(dialog_instance,parent = Util.visitor_dialog_parent):
 	parent.add_child(dialog_instance)
 	yield(dialog_instance.start_dialog(),"completed")
 
@@ -145,8 +145,9 @@ func init_position(_position,_target,_face,_position_index):
 	face = _face
 	position_index = _position_index
 
-func init(_waiting_time):
-	quest_waiting_time = _waiting_time
+func init(dinosaur_quest_waiting_time, dinosaur_action_interval_range):
+	quest_waiting_time = dinosaur_quest_waiting_time
+	do_thing_time_range = dinosaur_action_interval_range
 
 
 func _on_Timer_timeout():
