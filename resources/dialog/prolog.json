@@ -1,99 +1,74 @@
 {
         "first": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "This time travel is almost end..",
-            
-            "after_trigger":"end"
+            "after_trigger":"end",
+            "ignext": "0",
         },
         "0": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "Though it is fun, I actually expected something more special. Like..",
             "next": "1",
         },
         "1": {
             "trigger":"comet_appear",
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "OMG A COMET IS ATTACKING A PLANET!!",
             "next": "2"
         },
         "2": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "I'll destroy this comet now!",
             "next": "3",
         },
         "3": {
             "trigger":"destroy_comet",
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "YES! I SAVED a planet! That's what I want to do!",
             "next": "4"
         },
         "4": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "I'm a hero to this planet! I'll own this planet and everything on it! I'll be a billionare!",
             "next": "4-1"
         },
         "4-1": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "Spaceship, tell me the infomation about this planet!",
             "next": "6"
         },
         "6": {
             "speaker":"Spaceship",
+            "pivot":[-1,-1],
             "content": "Spaceship:@'[i]It is the Earth in the Late Cretaceous.[/i]'",
             "next": "6-1"
         },
         
         "6-1": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "Ear..| EARTH???!!!",
             "next": "7"
         },
         "7": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "Oh what did I do.. did I save..| DINOSAURS?",
             "next": "8"
         },
         "8": {
             "speaker":"Spaceship",
+            "pivot":[-1,-1],
             "content": "Spaceship: @'[i]This is the end of your time travel.[/i]'",
             "next": "9"
         },
         "9": {
             "speaker":"Spaceship",
+            "pivot":[-1,-1],
             "content": "Spaceship: @'[i]Sending you back...[color=red]Your bahavior would affect the world in your timeline[/color][/i]'",
             "next": "10"
         },
         "10": {
-            "speaker":"Alex",
+            "speaker":"Spaceship",
             "content": "NOOOOOOO!!",
             "after_trigger":"end"
-        },
-        "11": {
-            "content": "You are sending back to your time on the earth, and because of you saved dinosaurs from the comet, they become the master of the earth.",
-            "next": "12"
-        },
-        "12": {
-            "content": "You are captured by them, luckily, they think you look special, so instead of eating you, they put you into a zoo.",
-            "next": "0"
-        },
-        "13": {
-            "content": "Somehow you can understand them, but they can't understand you.",
-            "next": "0"
-        },
-        "14": {
-            "content": "My my. You are really a weird monkey.",
-            "next": "0"
-        },
-        "15": {
-            "content": "I hope they want to see you. If you can't earn enough money for me, guess who will pay your food?",
-            "next": "0"
-        },
-        "16": {
-            "content": "Nobody. But we don't want that happen right?",
-            "next": "0"
-        },
-        "17": {
-            "content": "Be a good monkey and behave yourself, I'll feed you if you earn enough money, alright?",
-            "next": "0"
         },
     },

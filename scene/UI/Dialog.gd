@@ -6,6 +6,7 @@ var parent_node
 signal skip_dialog_signal
 onready var sfx = $sfx
 
+var speaker
 
 var dialog_wait_time = 2
 var dialog
@@ -31,13 +32,19 @@ func init(_position, _dialog,_is_quest,dialog_size):
 	rect_size = dialog_size
 	is_quest = _is_quest
 	
+func update_pivot():
+	var pivot = current_dialog.get("pivot",[0,-1])
+	var position_offset = Vector2(rect_size.x*pivot[0],rect_size.y*pivot[1])
+	rect_position+=position_offset
+	
+	
 func init_with_parent_node(_parent_node, _dialog,_is_quest):
 	dialog = _dialog
 	parent_node = _parent_node
 	is_quest = _is_quest
 	current_dialog = dialog["first"]
 	var speaker_name = current_dialog['speaker']
-	var speaker = parent_node.get(current_dialog['speaker'])
+	speaker = parent_node.get(current_dialog['speaker'])
 	var g_position = speaker.get_global_position()
 	rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
 	click_to_continue = true
@@ -197,6 +204,7 @@ func show_one_dialog_with_type_writing():
 		var speaker = parent_node.get(current_dialog['speaker'])
 		var g_position = speaker.get_global_position()
 		rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
+	update_pivot()
 		#panel.rect_size = parent_node.get_dialog_size()
 	#hide_name(name_left)
 	#hide_name(name_right)
@@ -252,17 +260,20 @@ func show_one_dialog_with_type_writing():
 #		continue_indicator.show()
 #		animations.play('Continue_Indicator')
 
-func check_trigger():
-	if current_dialog.has("trigger"):
-		var trigger = current_dialog['trigger']
+func check_trigger_common(trigger_type):
+	if current_dialog.has(trigger_type):
+		panel.visible = false
+		label.bbcode_text = ''
+		var trigger = current_dialog[trigger_type]
 		yield(parent_node.trigger(trigger),"completed")
+		panel.visible = true
 	yield(get_tree(), 'idle_frame')
+
+func check_trigger():
+	yield(check_trigger_common("trigger"),"completed")
 	
 func check_after_trigger():
-	if current_dialog.has("after_trigger"):
-		var trigger = current_dialog['after_trigger']
-		yield(parent_node.trigger(trigger),"completed")
-	yield(get_tree(), 'idle_frame')
+	yield(check_trigger_common("after_trigger"),"completed")
 
 func _on_Timer_timeout():
 	pass
@@ -315,9 +326,15 @@ func finish_typewriting():
 	sfx.stop()
 	typewriting_finished = true
 	
+	if speaker and speaker.get("playing")!=null:
+		speaker.playing = false
+		speaker.frame = 0
+	
 func start_typewriting():
 	sfx.play()
 	typewriting_finished = false
+	if speaker and speaker.get("playing")!=null:
+		speaker.playing = true
 
 func update_pause():
 	if pause_array.size() > (pause_index+1): # Check if the current pause is not the last one. 
