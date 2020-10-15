@@ -24,6 +24,7 @@ Util="*res://scene/AutoLoad/Util.gd"
 DialogManager="*res://scene/AutoLoad/DialogManager.gd"
 QuestManager="*res://scene/AutoLoad/QuestManager.gd"
 Events="*res://scene/AutoLoad/Events.gd"
+MusicManager="*res://scene/AutoLoad/MusicManager.tscn"
 
 [display]
 

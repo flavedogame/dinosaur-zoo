@@ -4,6 +4,8 @@ var parent_node
 
 
 signal skip_dialog_signal
+onready var sfx = $sfx
+
 
 var dialog_wait_time = 2
 var dialog
@@ -220,7 +222,7 @@ func show_one_dialog_with_type_writing():
 	
 	if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
 		label.visible_characters = 0
-		typewriting_finished = false
+		start_typewriting()
 		timer.wait_time = wait_time
 		
 		#timer.start()
@@ -240,7 +242,7 @@ func show_one_dialog_with_type_writing():
 			
 			timer.start()
 			yield(timer,"timeout")
-	typewriting_finished = true
+	stop_typewriting()
 	if not click_to_continue:
 		timer.wait_time =dialog_wait_time
 		timer.start()
@@ -304,10 +306,18 @@ func stop_typewriting():
 #			one_dialog_finished = true
 #			timer.wait_time = 0
 #			return false
-	typewriting_finished = true
+	finish_typewriting()
 	#timer.stop()
 	label.visible_characters = number_characters
 	return false
+	
+func finish_typewriting():
+	sfx.stop()
+	typewriting_finished = true
+	
+func start_typewriting():
+	sfx.play()
+	typewriting_finished = false
 
 func update_pause():
 	if pause_array.size() > (pause_index+1): # Check if the current pause is not the last one. 

@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sound/bg/bensound-cute.wav" type="AudioStream" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+onready var player = $AudioStreamPlayer
+
+var music_dict = {
+	\"level_game\" : preload(\"res://sound/bg/bensound-cute.ogg\"),
+	\"ending\" : preload(\"res://sound/bg/bensound-tomorrow.ogg\"),
+	\"start\": preload(\"res://sound/bg/bensound-slowmotion.ogg\"),
+}
+
+var sfx_dict = {
+	\"typing\": preload(\"res://sound/fx/425161__chazzravenelle__smartphone-texting-sound-and-vibrate-high-quality.wav\")
+}
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	MusicManager.play_music(\"start\")
+
+func play_music(music_name):
+	player.stream = music_dict[music_name]
+	player.playing = true
+	
+func get_sfx(sfx_name):
+	return sfx_dict[sfx_name]
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[node name="SoundManager" type="Node"]
+script = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
