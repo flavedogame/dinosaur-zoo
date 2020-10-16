@@ -47,7 +47,7 @@ func check_if_position_is_close(quest_args):
 	var monkey_position_index = quest_args.monkey_position_index
 	var dinosaur_position_index = Util.position_to_index(position)
 	var distance = monkey_position_index.distance_to(dinosaur_position_index)
-	print("distance ",distance)
+	#print("distance ",distance)
 	if distance <= 10:
 		return true
 	return false
