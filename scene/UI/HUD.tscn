@@ -1,0 +1,210 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://fonts/info font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scene/UI/HUD.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.682353, 1, 0.52549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 0.623529, 0.560784, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0.498039, 0.498039, 0.498039, 1 )
+border_width_left = 10
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_right = 0.000244141
+margin_bottom = 105.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/HBoxContainer"]
+margin_left = 436.0
+margin_right = 1036.0
+margin_bottom = 105.0
+rect_min_size = Vector2( 600, 100 )
+color = Color( 1, 0.988235, 0.886275, 1 )
+
+[node name="Label" type="Label" parent="ColorRect/HBoxContainer/ColorRect"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 202.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 100 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Open Time:"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="open_time_progress" type="ProgressBar" parent="ColorRect/HBoxContainer/ColorRect"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -50.0
+margin_right = -10.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 400, 100 )
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+value = 90.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="ColorRect/HBoxContainer"]
+margin_left = 1086.0
+margin_right = 1686.0
+margin_bottom = 105.0
+rect_min_size = Vector2( 600, 100 )
+color = Color( 1, 0.988235, 0.886275, 1 )
+
+[node name="Label2" type="Label" parent="ColorRect/HBoxContainer/ColorRect2"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 200.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 100 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Health:"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health_bar" type="ProgressBar" parent="ColorRect/HBoxContainer/ColorRect2"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -50.0
+margin_right = -10.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 400, 100 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+value = 90.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="ColorRect/HBoxContainer"]
+margin_left = 1736.0
+margin_right = 2136.0
+margin_bottom = 105.0
+rect_min_size = Vector2( 400, 100 )
+color = Color( 1, 0.976471, 0.823529, 1 )
+
+[node name="earning_label" type="Label" parent="ColorRect/HBoxContainer/ColorRect3"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 200.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 100 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Earning::"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="earning" type="Label" parent="ColorRect/HBoxContainer/ColorRect3"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -50.0
+margin_right = -10.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 100 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "100"
+align = 2
+valign = 1
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect/HBoxContainer"]
+margin_left = 2186.0
+margin_right = 2636.0
+margin_bottom = 105.0
+rect_min_size = Vector2( 450, 100 )
+color = Color( 1, 0.976471, 0.823529, 1 )
+
+[node name="reputation_label2" type="Label" parent="ColorRect/HBoxContainer/ColorRect4"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 224.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 100 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Reputation:"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="reputation" type="Label" parent="ColorRect/HBoxContainer/ColorRect4"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -50.0
+margin_right = -10.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 100 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "200"
+align = 2
+valign = 1

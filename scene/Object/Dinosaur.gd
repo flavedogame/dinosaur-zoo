@@ -14,7 +14,7 @@ var position_index
 var arrived = false
 
 var do_thing_time_range = [0,1]
-var doing_things_rate = [0,100,0]
+var doing_things_rate = [100,100,10]
 enum THINGS_TODO {chitchat,quest,leave,wait,none}
 var current_doing = THINGS_TODO.none
 

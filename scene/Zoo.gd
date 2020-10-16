@@ -34,6 +34,7 @@ func _ready():
 	dialog_instance.start_dialog()
 	Util.visitor_dialog_parent = curator_dialog
 	Util.visitor_quest_parent = $zoo_scene/TileMap/quest
+	Util.Hud = $HUD
 	
 func load_level_dialog():
 	var file_path = '%s/%s%d.json' % [dialog_folder, "level",get_level()]

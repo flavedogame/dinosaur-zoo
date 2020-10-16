@@ -25,6 +25,8 @@ DialogManager="*res://scene/AutoLoad/DialogManager.gd"
 QuestManager="*res://scene/AutoLoad/QuestManager.gd"
 Events="*res://scene/AutoLoad/Events.gd"
 MusicManager="*res://scene/AutoLoad/MusicManager.tscn"
+LevelManger="*res://scene/AutoLoad/LevelManger.gd"
+ResourceManager="*res://scene/AutoLoad/ResourceManager.gd"
 
 [display]
 

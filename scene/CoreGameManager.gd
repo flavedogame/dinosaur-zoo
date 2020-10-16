@@ -1,9 +1,10 @@
 extends Node2D
 
-var dinosaur_generation_time = 1
+var dinosaur_generation_range = [1,2]
 var dinosaur_quest_waiting_time = 5
 var dinosaur_action_interval_range = [0,1]
 var level_max_dinosaur = 10
+var level_length = 30
 
 var screen_size = Vector2(1024*3/4,600*3/4)
 var outside_rail_length = 4
@@ -27,10 +28,22 @@ onready var timer = $Timer
 onready var dialogs = $dialogs
 onready var quest_dialogs = $quest_dialogs
 
+func read_level_info():
+	var level_info = LevelManger.get_levle_info()
+	level_length = level_info.level_length
+	dinosaur_generation_range = level_info.dinosaur_generation_range
+	dinosaur_quest_waiting_time = level_info.dinosaur_quest_waiting_time
+	dinosaur_action_interval_range = level_info.dinosaur_action_interval_range
+	level_max_dinosaur = level_info.level_max_dinosaur
+	set_generate_timer()
+
 func _ready():
 	MusicManager.play_music("level_game")
 	Util.core_game_manager = self
 	Events.connect("dinosaur_left",self,"on_dinosaur_left")
+	read_level_info()
+	ResourceManager.level_start()
+	
 
 func set_dinosaur_position(dinosaur_instance):
 	var top_count = top_position_x_range[1]- top_position_x_range[0]+1
@@ -68,10 +81,13 @@ func set_dinosaur_position(dinosaur_instance):
 func on_dinosaur_left(position_index):
 	dianosaur_invalid_position.erase(position_index)
 
+func set_generate_timer():
+	timer.wait_time = Util.randomf_range_array(dinosaur_generation_range)
+
 func _on_Timer_timeout():
 	if dianosaur_invalid_position.size() < level_max_dinosaur:
 		var dinosaur_instance = dinosaur.instance()
 		dinosaur_instance.init(dinosaur_quest_waiting_time, dinosaur_action_interval_range)
 		set_dinosaur_position(dinosaur_instance)
 		add_child(dinosaur_instance)
-	timer.wait_time = dinosaur_generation_time
+	set_generate_timer()

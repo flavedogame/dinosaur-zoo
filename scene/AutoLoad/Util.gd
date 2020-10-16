@@ -7,6 +7,8 @@ var visitor_dialog_size = Vector2(400,210)
 var normal_dialog_size = Vector2(900,210)
 
 var core_game_manager
+var Zoo
+var Hud
 var visitor_dialog_parent
 var visitor_quest_parent
 
