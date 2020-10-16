@@ -14,7 +14,7 @@ var position_index
 var arrived = false
 
 var do_thing_time_range = [0,1]
-var doing_things_rate = [100,100,10]
+var doing_things_rate = [0,100,0]
 enum THINGS_TODO {chitchat,quest,leave,wait,none}
 var current_doing = THINGS_TODO.none
 
@@ -35,12 +35,33 @@ func leave():
 		current_dialog.queue_free()
 		current_dialog = null
 
+func show_succeed_quest_dialog():
+	
+	var succeed_quest_dialog = QuestManager.select_succeed_quest_dialog(selected_quest)
+	current_dialog = DialogManager.select_dialog(self,succeed_quest_dialog)
+	#print(current_dialog)
+	yield(show_dialog(current_dialog, Util.visitor_quest_parent),"completed")
+	pass
+func show_failed_quest_dialog():
+	var failed_quest_dialog = QuestManager.select_failed_quest_dialog(selected_quest)
+	current_dialog = DialogManager.select_dialog(self,failed_quest_dialog)
+	print(failed_quest_dialog)
+	#print(current_dialog)
+	yield(show_dialog(current_dialog, Util.visitor_quest_parent),"completed")
+	pass
+
+#todo: queue finish
+
 func finish_quest():
 	print("finish quest")
 	if current_doing == THINGS_TODO.quest:
-		current_doing = THINGS_TODO.none
 		Events.disconnect("test_quest",self,"test_quest")
 		current_dialog.queue_free()
+		
+func finish_quest_dialog():
+	
+	if current_doing == THINGS_TODO.quest:
+		current_doing = THINGS_TODO.none
 		leave()
 
 func check_if_position_is_close(quest_args):
@@ -59,9 +80,13 @@ func test_quest(quest_name, quest_args):
 			"come_close":
 				if check_if_position_is_close(quest_args):
 					finish_quest()
+					yield(show_succeed_quest_dialog(),"completed")
+					finish_quest_dialog()
 			"spin":
 				if check_if_position_is_close(quest_args):
 					finish_quest()
+					yield(show_succeed_quest_dialog(),"completed")
+					finish_quest_dialog()
 		
 
 func select_quest():
@@ -75,8 +100,10 @@ func select_quest():
 	#don't know why use timer here will make queue_free for dialog not work
 	#yield(timer, "timeout")
 	yield(get_tree().create_timer(quest_waiting_time), "timeout")
-	print("failed quest")
 	finish_quest()
+	yield(show_failed_quest_dialog(),"completed")
+	finish_quest_dialog()
+	print("failed quest")
 
 func select_chitchat():
 	var dialog_instance = DialogManager.select_chitchat(self)

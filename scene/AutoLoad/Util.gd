@@ -43,6 +43,10 @@ func randomf_range_array(array):
 
 func randomi_array_size(array):
 	return rng.randi_range(0,array.size()-1)
+	
+func random_element_array(array):
+	var i = rng.randi_range(0,array.size()-1)
+	return array[i]
 
 func random_array(array):
 	var total_count = sum_array(array)
