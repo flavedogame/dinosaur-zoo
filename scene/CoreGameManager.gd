@@ -31,6 +31,7 @@ onready var quest_dialogs = $quest_dialogs
 func read_level_info():
 	var level_info = LevelManger.get_levle_info()
 	level_length = level_info.level_length
+	ResourceManager.game_time = level_length
 	dinosaur_generation_range = level_info.dinosaur_generation_range
 	dinosaur_quest_waiting_time = level_info.dinosaur_quest_waiting_time
 	dinosaur_action_interval_range = level_info.dinosaur_action_interval_range
@@ -43,6 +44,7 @@ func _ready():
 	Events.connect("dinosaur_left",self,"on_dinosaur_left")
 	read_level_info()
 	ResourceManager.level_start()
+	Util.Hud.init_level()
 	
 
 func set_dinosaur_position(dinosaur_instance):

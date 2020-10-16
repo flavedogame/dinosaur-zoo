@@ -8,9 +8,19 @@ var normal_dialog_size = Vector2(900,210)
 
 var core_game_manager
 var Zoo
+var tilemap
 var Hud
 var visitor_dialog_parent
 var visitor_quest_parent
+var Player
+
+func get_player_position_index():
+	var player_position = Player.position
+	return position_to_index(player_position)
+	
+func get_player_position():
+	var player_position = Player.position
+	return player_position
 
 func _ready():
 	rng.randomize()

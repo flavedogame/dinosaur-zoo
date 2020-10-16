@@ -1,6 +1,7 @@
 extends Area2D
 
 onready var raycast = $RayCast2D
+onready var animation = $AnimationPlayer
 
 #ref https://kidscancode.org/godot_recipes/2d/grid_movement/
 var tile_size = 16
@@ -11,6 +12,7 @@ var inputs = {"right": Vector2.RIGHT,
 var save_step_count = 5
 var position_index
 var is_moving_waiting = false
+var is_hiited = false
 
 var last_steps:Array = []
 
@@ -19,6 +21,7 @@ func _ready():
 	position += Vector2.ONE * Vector2(tile_size/2,0) 
 	position_index = Util.position_to_index(position)
 	position = Util.index_to_position(position_index)
+	Util.Player = self
 	
 func get_input():
 	for dir in inputs.keys():
@@ -50,7 +53,7 @@ func check_collider(dir):
 	return collider
 
 func move(dir):
-	if not is_moving_waiting:
+	if not is_moving_waiting and not is_hiited:
 		if not check_collider(dir):
 			is_moving_waiting = true
 			$Timer.start()
@@ -59,6 +62,13 @@ func move(dir):
 			check_move_shape()
 			Events.emit_signal("test_quest","come_close",{"monkey_position_index":position_index})
 
+func do_damage(damage = 1):
+	is_hiited = true
+	ResourceManager.do_damage()
+	animation.current_animation = "hitted"
+	animation.play()
+	yield(animation,"animation_finished")
+	is_hiited = false
 
 func _on_Timer_timeout():
 	is_moving_waiting = false

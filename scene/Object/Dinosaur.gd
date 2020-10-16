@@ -8,7 +8,7 @@ var quest_waiting_time
 var origin_position
 var target_position
 var direction
-var walk_time = 1
+var walk_time = 0.1
 var face
 var position_index
 var arrived = false
@@ -42,6 +42,7 @@ func show_succeed_quest_dialog():
 	#print(current_dialog)
 	yield(show_dialog(current_dialog, Util.visitor_quest_parent),"completed")
 	pass
+	
 func show_failed_quest_dialog():
 	var failed_quest_dialog = QuestManager.select_failed_quest_dialog(selected_quest)
 	current_dialog = DialogManager.select_dialog(self,failed_quest_dialog)
@@ -73,20 +74,24 @@ func check_if_position_is_close(quest_args):
 		return true
 	return false
 
+
+
+func quest_succeed():
+	finish_quest()
+	yield(show_succeed_quest_dialog(),"completed")
+	finish_quest_dialog()
+	RewardManager.offer_reward(self)
+
 func test_quest(quest_name, quest_args):
 	#print(quest_name," ",quest_args)
 	if quest_name == selected_quest.name:
 		match quest_name:
 			"come_close":
 				if check_if_position_is_close(quest_args):
-					finish_quest()
-					yield(show_succeed_quest_dialog(),"completed")
-					finish_quest_dialog()
+					yield(quest_succeed(),"completed")
 			"spin":
 				if check_if_position_is_close(quest_args):
-					finish_quest()
-					yield(show_succeed_quest_dialog(),"completed")
-					finish_quest_dialog()
+					yield(quest_succeed(),"completed")
 		
 
 func select_quest():
@@ -103,6 +108,8 @@ func select_quest():
 	finish_quest()
 	yield(show_failed_quest_dialog(),"completed")
 	finish_quest_dialog()
+	
+	RewardManager.offer_reward(self)
 	print("failed quest")
 
 func select_chitchat():

@@ -83,7 +83,7 @@ custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-value = 90.0
+value = 100.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -126,7 +126,7 @@ custom_styles/fg = SubResource( 3 )
 custom_styles/bg = SubResource( 4 )
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-value = 90.0
+value = 100.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -208,3 +208,6 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "200"
 align = 2
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
