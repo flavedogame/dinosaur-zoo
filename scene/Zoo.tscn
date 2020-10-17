@@ -51,6 +51,9 @@ z_index = 10
 [node name="coin2" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
 position = Vector2( 422.111, 265.964 )
 
+[node name="coin3" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
+position = Vector2( 404.758, 281.482 )
+
 [node name="Curator" type="Sprite" parent="zoo_scene/TileMap"]
 position = Vector2( 340.262, 265.133 )
 scale = Vector2( -1, 1 )
@@ -67,11 +70,6 @@ scale = Vector2( 0.25, 0.25 )
 
 [node name="coin" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
 position = Vector2( 437.545, 282.343 )
-
-[node name="Label" parent="zoo_scene/TileMap/coin" index="2"]
-text = "3
-
-"
 
 [node name="Tween" type="Tween" parent="."]
 

@@ -11,6 +11,39 @@ var max_health = 100
 var level_started = false
 var current_health = max_health
 
+var coin_type = [1,10,100]
+var coin_type_list = ["bronze","silver","gold"]
+
+
+func can_plus(item1,item2):
+	if not item1 or not item2:
+		return false
+	var type1 = item1.type
+	var type2 = item2.type
+	var coin_type1 = item1.coin_type
+	var coin_type2 = item2.coin_type
+	if type1 == "coin" and type2 == "coin" and coin_type1 == coin_type2:
+		return true
+	return false
+
+func plus_coin(coin1,coin2):
+	var value1 = coin1.value
+	var value2 = coin2.value
+	var type = coin1.coin_type
+	if value1+value2 >=10:
+		coin1.coin_type +=  1
+		coin1.value = 1
+		coin2.value = value1+value2-10
+	else:
+		coin1.value = value1+value2
+		coin2.value = 0
+	coin1.update_visually()
+	if coin2.value == 0:
+		coin2.destory()
+	else:
+		coin2.update_visually()
+		
+
 func add_coin(_coin):
 	current_earning+=_coin
 	Events.emit_signal("update_current_coin",passed_time)

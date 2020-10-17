@@ -1,14 +1,23 @@
 extends Area2D
 
-var value
+var value = 4
+var type = "coin"
+var coin_type = 0
 var target_position
 var origin_position
 
 var is_picked_up = false
 
 onready var tween = $Tween
-onready var label = $Label
+onready var label = $Node2D/Label
 onready var raycast = $RayCast2D
+onready var coin_sprite = $coin_sprite
+
+var coin_type_sprites = [
+	preload("res://art/object/coin_brown.png"),
+	preload("res://art/object/coin_silver.png"),
+	preload("res://art/object/coin_gold.png"),
+]
 
 func init(_position,_target,_value):
 	value = _value
@@ -21,9 +30,9 @@ func picked_up(_is_picked_up):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if value:
-		label.text = String(value)
-		position= origin_position
+	update_visually()
+	if origin_position:
+		position = origin_position
 		tween.interpolate_property(
 				self, 
 				"position", 
@@ -48,6 +57,12 @@ func check_collide():
 		
 	pass
 
+func update_visually():
+	label.text = String(value)
+	coin_sprite.texture = coin_type_sprites[coin_type]
+
+func destory():
+	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

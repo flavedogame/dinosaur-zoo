@@ -99,11 +99,14 @@ func drop_down(item,dir):
 
 func interact(dir):
 	var facing_item = get_collider(dir)
-	if holding_item:
-		yield(drop_down(holding_item, dir),"completed")
-	
-	if facing_item:
-		pick_up(facing_item)
+	if ResourceManager.can_plus(facing_item,holding_item):
+		ResourceManager.plus_coin(facing_item,holding_item)
+	else:
+		if holding_item:
+			yield(drop_down(holding_item, dir),"completed")
+		
+		if facing_item:
+			pick_up(facing_item)
 
 func _on_Timer_timeout():
 	is_moving_waiting = false
