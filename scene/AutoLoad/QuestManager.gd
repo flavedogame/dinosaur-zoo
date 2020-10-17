@@ -20,9 +20,15 @@ func load_failed():
 	var file_path = '%s/%s.json' % [quest_folder, "failed"]
 	failed_dialogs = Util.load_json(file_path)
 
-func select_quest(dianosaur):
-	var random_i = Util.randomi_array_size(normal_list)
+func select_quest(dinosaur):
+#	if dinosaur.has("quest"):
+#		pass
+#	else:
+	var level_quest = LevelManger.get_levle_info().quest
+	var random_i = Util.random_distribution_array(level_quest)
 	return normal_list[random_i]
+#	var random_i = Util.randomi_array_size(normal_list)
+#	return normal_list[random_i]
 	
 func select_succeed_quest_dialog(dialog):
 	if dialog.has("completed"):

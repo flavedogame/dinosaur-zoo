@@ -3,6 +3,7 @@ extends Area2D
 onready var raycast = $RayCast2D
 onready var animation = $AnimationPlayer
 onready var hold_item_position = $hold_item_position
+onready var sprite = $Sprite
 
 #ref https://kidscancode.org/godot_recipes/2d/grid_movement/
 var tile_size = 16
@@ -101,12 +102,19 @@ func interact(dir):
 	var facing_item = get_collider(dir)
 	if ResourceManager.can_plus(facing_item,holding_item):
 		ResourceManager.plus_coin(facing_item,holding_item)
+		if holding_item.is_destoryed:
+			holding_item  = null
 	else:
 		if holding_item:
 			yield(drop_down(holding_item, dir),"completed")
 		
 		if facing_item:
 			pick_up(facing_item)
+	print("holding_item ",holding_item)
+	if holding_item:
+		sprite.frame = 1
+	else:
+		sprite.frame = 0
 
 func _on_Timer_timeout():
 	is_moving_waiting = false

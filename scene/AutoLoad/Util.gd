@@ -63,7 +63,7 @@ func random_element_array(array):
 	var i = rng.randi_range(0,array.size()-1)
 	return array[i]
 
-func random_array(array):
+func random_distribution_array(array):
 	var total_count = sum_array(array)
 	var random_value = rng.randi_range(0,total_count)
 	var increading_count = 0

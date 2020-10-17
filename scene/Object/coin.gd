@@ -6,6 +6,7 @@ var coin_type = 0
 var target_position
 var origin_position
 
+var is_destoryed = false
 var is_picked_up = false
 
 onready var tween = $Tween
@@ -62,6 +63,7 @@ func update_visually():
 	coin_sprite.texture = coin_type_sprites[coin_type]
 
 func destory():
+	is_destoryed = true
 	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

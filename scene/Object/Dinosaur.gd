@@ -21,6 +21,7 @@ var current_doing = THINGS_TODO.none
 var current_dialog
 var selected_quest
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if face == 1:
@@ -130,7 +131,7 @@ func show_dialog(dialog_instance,parent = Util.visitor_dialog_parent):
 	yield(dialog_instance.start_dialog(),"completed")
 
 func select_thing_todo():
-	var selected_thing = Util.random_array(doing_things_rate)
+	var selected_thing = Util.random_distribution_array(doing_things_rate)
 	match selected_thing:
 		0:
 			print("do chitchat")
