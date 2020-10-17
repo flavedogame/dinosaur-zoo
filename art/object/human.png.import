@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/thief.png-4033ce4d22cf7f4c5ab7207005205ebd.stex"
+path="res://.import/human.png-ac8c9a274b343b74f399476594c0cc8d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/object/thief.png"
-dest_files=[ "res://.import/thief.png-4033ce4d22cf7f4c5ab7207005205ebd.stex" ]
+source_file="res://art/object/human.png"
+dest_files=[ "res://.import/human.png-ac8c9a274b343b74f399476594c0cc8d.stex" ]
 
 [params]
 

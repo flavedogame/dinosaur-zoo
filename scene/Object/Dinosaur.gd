@@ -78,9 +78,19 @@ func check_if_position_is_close(quest_args):
 
 func quest_succeed():
 	finish_quest()
+	var data = RewardManager.start_warning(self)
 	yield(show_succeed_quest_dialog(),"completed")
 	finish_quest_dialog()
-	RewardManager.offer_reward(self)
+	RewardManager.offer_reward(self,data)
+	
+func quest_failed():
+	finish_quest()
+	var data = RewardManager.start_warning(self)
+	yield(show_failed_quest_dialog(),"completed")
+	finish_quest_dialog()
+	
+	RewardManager.offer_reward(self,data)
+	print("failed quest")
 
 func test_quest(quest_name, quest_args):
 	#print(quest_name," ",quest_args)
@@ -105,11 +115,7 @@ func select_quest():
 	#don't know why use timer here will make queue_free for dialog not work
 	#yield(timer, "timeout")
 	yield(get_tree().create_timer(quest_waiting_time), "timeout")
-	finish_quest()
-	yield(show_failed_quest_dialog(),"completed")
-	finish_quest_dialog()
-	
-	RewardManager.offer_reward(self)
+	quest_failed()
 	print("failed quest")
 
 func select_chitchat():

@@ -34,10 +34,8 @@ func check_collide():
 	#print("check collide")
 	var collider = raycast.get_collider()
 	if collider:
-		print(collider)
 		for i in collider.get_groups():
 			if i == "player":
-				print("collide player")
 				Util.Player.do_damage()
 				self.queue_free()
 				
