@@ -32,11 +32,12 @@ func get_input():
 	if not is_moving_waiting and not is_hiited:
 		if Input.is_action_pressed(interact_input):
 			for dir in inputs.keys():
-				if Input.is_action_pressed(dir):
+				if Input.is_action_just_pressed(dir):
 					interact(inputs[dir])
-		for dir in inputs.keys():
-			if Input.is_action_pressed(dir):
-				move(inputs[dir])
+		else:
+			for dir in inputs.keys():
+				if Input.is_action_pressed(dir):
+					move(inputs[dir])
 
 func _physics_process(delta):
 	get_input()
@@ -53,7 +54,8 @@ func check_move_shape():
 		if last_steps[last_index] == last_steps[last_index-4] and last_steps[last_index]!=last_steps[last_index-1] and last_steps[last_index]!=last_steps[last_index-2]and last_steps[last_index]!=last_steps[last_index-3]:
 			Events.emit_signal("test_quest","spin",{"monkey_position_index":position_index})
 
-func check_collider(dir):
+
+func get_collider(dir):
 	raycast.cast_to = dir*tile_size
 	#..is this stupid or I'm stupid
 	raycast.force_raycast_update()
@@ -63,7 +65,7 @@ func check_collider(dir):
 	return collider
 
 func move(dir):
-	if not check_collider(dir):
+	if not get_collider(dir):
 		is_moving_waiting = true
 		$Timer.start()
 		position_index+=dir
@@ -80,13 +82,28 @@ func do_damage(damage = 1):
 	is_hiited = false
 
 func pick_up(item):
-	pass
+	item.picked_up(true)
+	Util.reparent(item,self)
+	item.position = hold_item_position.position
+	holding_item = item
 	
-func drop_down(item):
-	pass
+func drop_down(item,dir):
+	Util.reparent(item,Util.tilemap)
+	#set position
+	item.position = Util.index_to_position((Util.get_player_position_index()+dir))
+	#I dont understand but not having this it would collide with my poor player
+	yield(get_tree().create_timer(0.1), "timeout")
+
+	item.picked_up(false)
+	holding_item = null
 
 func interact(dir):
-	pass
+	var facing_item = get_collider(dir)
+	if holding_item:
+		yield(drop_down(holding_item, dir),"completed")
+	
+	if facing_item:
+		pick_up(facing_item)
 
 func _on_Timer_timeout():
 	is_moving_waiting = false

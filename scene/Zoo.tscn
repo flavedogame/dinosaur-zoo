@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://art/map/handrail-top.png" type="Texture" id=1]
 [ext_resource path="res://scene/Object/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scene/Zoo.gd" type="Script" id=3]
 [ext_resource path="res://art/object/dino-triceratops.png" type="Texture" id=4]
 [ext_resource path="res://scene/UI/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/Object/coin.tscn" type="PackedScene" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "handrail-top.png 0"
@@ -29,6 +30,7 @@ margin_left = -1.33472
 margin_right = -1.33472
 script = ExtResource( 3 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -44,6 +46,10 @@ tile_data = PoolIntArray( 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0
 
 [node name="Alex" parent="zoo_scene/TileMap" instance=ExtResource( 2 )]
 position = Vector2( 421.416, 282.52 )
+z_index = 10
+
+[node name="coin2" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
+position = Vector2( 422.111, 265.964 )
 
 [node name="Curator" type="Sprite" parent="zoo_scene/TileMap"]
 position = Vector2( 340.262, 265.133 )
@@ -58,6 +64,14 @@ scale = Vector2( 0.25, 0.25 )
 
 [node name="quest" type="Node2D" parent="zoo_scene/TileMap"]
 scale = Vector2( 0.25, 0.25 )
+
+[node name="coin" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
+position = Vector2( 437.545, 282.343 )
+
+[node name="Label" parent="zoo_scene/TileMap/coin" index="2"]
+text = "3
+
+"
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -74,3 +88,5 @@ __meta__ = {
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+
+[editable path="zoo_scene/TileMap/coin"]

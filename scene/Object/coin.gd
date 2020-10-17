@@ -4,6 +4,8 @@ var value
 var target_position
 var origin_position
 
+var is_picked_up = false
+
 onready var tween = $Tween
 onready var label = $Label
 onready var raycast = $RayCast2D
@@ -13,6 +15,9 @@ func init(_position,_target,_value):
 	target_position = _target
 	origin_position = _position
 
+func picked_up(_is_picked_up):
+	is_picked_up = _is_picked_up
+	get_node("CollisionShape2D").disabled= is_picked_up
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,7 +33,8 @@ func _ready():
 		yield(tween,"tween_completed")
 	
 func _process(delta):
-	check_collide()
+	if not is_picked_up:
+		check_collide()
 	
 func check_collide():
 	#print("check collide")

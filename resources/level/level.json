@@ -1,7 +1,7 @@
 [
     {
         "level_length":60,
-        "dinosaur_generation_range":[1,2],
+        "dinosaur_generation_range":[200,800],
         "level_max_dinosaur":10,
         "dinosaur_quest_waiting_time":1,
         "dinosaur_action_interval_range":[0,0],

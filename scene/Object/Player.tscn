@@ -5,7 +5,7 @@
 [ext_resource path="res://art/object/coin_brown.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.45249, 11.7093 )
+extents = Vector2( 6.51498, 5.66436 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "hitted"
@@ -32,7 +32,8 @@ position = Vector2( 0.222725, -11.7941 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.0558701, -11.7939 )
+position = Vector2( -0.180367, -6.67543 )
+z_index = 10
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]

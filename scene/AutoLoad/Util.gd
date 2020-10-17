@@ -14,6 +14,11 @@ var visitor_dialog_parent
 var visitor_quest_parent
 var Player
 
+func reparent(child: Node, new_parent: Node):
+	var old_parent = child.get_parent()
+	old_parent.remove_child(child)
+	new_parent.add_child(child)
+
 func get_player_position_index():
 	var player_position = Player.position
 	return position_to_index(player_position)
