@@ -39,24 +39,27 @@ func plus_coin(coin1,coin2):
 		coin2.value = 0
 	coin1.update_visually()
 	if coin2.value == 0:
-		coin2.destory()
+		coin2.destroy()
 	else:
 		coin2.update_visually()
 		
 
 func add_coin(_coin):
 	current_earning+=_coin
-	Events.emit_signal("update_current_coin",passed_time)
+	Events.emit_signal("update_current_earning",current_earning)
 	
 func add_reputation(_repu):
 	current_population+=_repu
-	Events.emit_signal("update_current_reputation",passed_time)
+	Events.emit_signal("update_current_reputation",current_population)
 	
 func level_start():
 	level_started = true
 	passed_time = 0
 	current_earning = 0
 	current_population = 0
+	
+	Events.emit_signal("update_current_earning",current_earning)
+	Events.emit_signal("update_current_reputation",current_population)
 	
 func do_damage(damage = 1):
 	current_health-=damage

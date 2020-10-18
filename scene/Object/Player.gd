@@ -67,12 +67,14 @@ func get_collider(dir):
 
 func move(dir):
 	if not get_collider(dir):
-		is_moving_waiting = true
-		$Timer.start()
-		position_index+=dir
-		position = Util.index_to_position(position_index)
-		check_move_shape()
-		Events.emit_signal("test_quest","come_close",{"monkey_position_index":position_index})
+		if Util.is_in_border(Util.get_player_position_index()+dir):
+			is_moving_waiting = true
+			$Timer.start()
+			
+			position_index+=dir
+			position = Util.index_to_position(position_index)
+			check_move_shape()
+			Events.emit_signal("test_quest","come_close",{"monkey_position_index":position_index})
 
 func do_damage(damage = 1):
 	is_hiited = true

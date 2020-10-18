@@ -1,13 +1,13 @@
 [
     {
         "level_length":60,
-        "dinosaur_generation_range":[2,5],
+        "dinosaur_generation_range":[5,5],
         "level_max_dinosaur":10,
         "dinosaur_quest_waiting_time":1,
         "dinosaur_action_interval_range":[0,0],
         "quest":[100],
-        "coin_value":[1,5],
-        "coin_count":[1,3]
+        "coin_value":[5,5],
+        "coin_count":[2,2],
     },
     {
         "level_length":60,

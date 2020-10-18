@@ -6,10 +6,10 @@ var dinosaur_action_interval_range = [0,1]
 var level_max_dinosaur = 10
 var level_length = 30
 
-var screen_size = Vector2(1024*3/4,600*3/4)
-var outside_rail_length = 4
-var outside_rail_length_side = 3
-var tile_size = 16
+var screen_size = Util.screen_size
+var outside_rail_length = Util.outside_rail_length
+var outside_rail_length_side = Util.outside_rail_length_side
+var tile_size = Util.tile_size
 var top_position_x_range = [outside_rail_length, screen_size.x/tile_size - outside_rail_length]
 var top_position_y = outside_rail_length
 var top_origin_position_y = -1

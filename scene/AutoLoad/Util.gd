@@ -6,6 +6,14 @@ var tile_size = 16
 var visitor_dialog_size = Vector2(400,210)
 var normal_dialog_size = Vector2(900,210)
 
+
+var screen_size = Vector2(1024*3/4,600*3/4)
+var outside_rail_length = 4
+var outside_rail_length_side = 3
+var inborder_x_range = [outside_rail_length+1, screen_size.x/tile_size - outside_rail_length-1]
+var inborder_y_range = [outside_rail_length+1, screen_size.y/tile_size - 1]
+
+
 var core_game_manager
 var Zoo
 var tilemap
@@ -13,6 +21,8 @@ var Hud
 var visitor_dialog_parent
 var visitor_quest_parent
 var Player
+
+var DIR = [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]
 
 func reparent(child: Node, new_parent: Node):
 	var old_parent = child.get_parent()
@@ -33,8 +43,22 @@ func _ready():
 func index_to_position(index):
 	return index*16
 	
+func is_in_border(index):
+	return index.x>=inborder_x_range[0] and index.x<=inborder_x_range[1] \
+		and index.y>=inborder_y_range[0] and index.y<=inborder_y_range[1]
+	
 func position_to_index(index):
 	var res = Vector2(floor(index.x/16),floor(index.y/16))
+	return res
+	
+func random_split_value_in_portion(value,count):
+	var res = []
+	while count>1 and value>0:
+		var v = rng.randi_range(1,value)
+		res.append(v)
+		value-=v
+		count-=1
+	res.append(value)
 	return res
 
 func sum_array(array):
@@ -55,6 +79,9 @@ func randomi_size_with_invalid_positions(size,invalid_position, loop_count = 100
 	
 func randomf_range_array(array):
 	return rng.randf_range(array[0],array[1])
+	
+func randomi_range_array(array):
+	return rng.randi_range(array[0],array[1])
 
 func randomi_array_size(array):
 	return rng.randi_range(0,array.size()-1)

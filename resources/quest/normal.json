@@ -1,6 +1,7 @@
 [
     {
         "name":"come_close",
+        "reputation":2,
         "first": {
             "content": "Hey monkey, come here!",
             "next": "0"
@@ -43,6 +44,7 @@
     },
     {
         "name":"spin",
+        "reputation":4,
         "first": {
             "content": "Hey monkey, spin!",
             "next": "0"

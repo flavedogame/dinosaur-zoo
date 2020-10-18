@@ -37,7 +37,8 @@ func leave():
 		current_dialog = null
 
 func show_succeed_quest_dialog():
-	
+	var reputation = selected_quest.reputation
+	ResourceManager.add_reputation(reputation)
 	var succeed_quest_dialog = QuestManager.select_succeed_quest_dialog(selected_quest)
 	current_dialog = DialogManager.select_dialog(self,succeed_quest_dialog)
 	#print(current_dialog)
@@ -45,6 +46,9 @@ func show_succeed_quest_dialog():
 	pass
 	
 func show_failed_quest_dialog():
+	
+	var reputation = selected_quest.reputation
+	ResourceManager.add_reputation(-reputation/2)
 	var failed_quest_dialog = QuestManager.select_failed_quest_dialog(selected_quest)
 	current_dialog = DialogManager.select_dialog(self,failed_quest_dialog)
 	print(failed_quest_dialog)
