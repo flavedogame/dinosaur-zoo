@@ -3,6 +3,7 @@ extends Area2D
 onready var raycast = $RayCast2D
 onready var animation = $AnimationPlayer
 onready var hold_item_position = $hold_item_position
+onready var hold_item_position_next = $hold_item_position_next
 onready var sprite = $Sprite
 
 #ref https://kidscancode.org/godot_recipes/2d/grid_movement/
@@ -17,7 +18,7 @@ var position_index
 var is_moving_waiting = false
 var is_hiited = false
 
-var holding_item
+var holding_items = []
 
 var last_steps:Array = []
 
@@ -87,8 +88,8 @@ func do_damage(damage = 1):
 func pick_up(item):
 	item.picked_up(true)
 	Util.reparent(item,self)
-	item.position = hold_item_position.position
-	holding_item = item
+	item.position = hold_item_position.position + (hold_item_position_next.position-hold_item_position.position)*holding_items.size()
+	holding_items.append(item)
 	
 func drop_down(item,dir):
 	Util.reparent(item,Util.tilemap)
@@ -98,22 +99,28 @@ func drop_down(item,dir):
 	yield(get_tree().create_timer(0.1), "timeout")
 
 	item.picked_up(false)
-	holding_item = null
+	#holding_item = null
 
 func interact(dir):
 	var facing_item = get_collider(dir)
-	if ResourceManager.can_plus(facing_item,holding_item):
-		ResourceManager.plus_coin(facing_item,holding_item)
-		if holding_item.is_destoryed:
-			holding_item  = null
+	if ResourceManager.can_plus(facing_item,holding_items.back()):
+		ResourceManager.plus_coin(holding_items.back(),facing_item)
+		
+#		if holding_item.is_destoryed:
+#			holding_item  = null
 	else:
-		if holding_item:
-			yield(drop_down(holding_item, dir),"completed")
+#		if holding_item:
+#			yield(drop_down(holding_item, dir),"completed")
 		
 		if facing_item:
 			pick_up(facing_item)
-	print("holding_item ",holding_item)
-	if holding_item:
+		else:
+			if holding_items.size()>0:
+				var top_item = holding_items.back()
+				yield(drop_down(top_item, dir),"completed")
+				holding_items.pop_back()
+	print("holding_items ",holding_items)
+	if holding_items.size()>0:
 		sprite.frame = 1
 	else:
 		sprite.frame = 0

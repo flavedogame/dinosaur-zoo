@@ -39,7 +39,7 @@ func plus_coin(coin1,coin2):
 		coin2.value = 0
 	coin1.update_visually()
 	if coin2.value == 0:
-		coin2.destroy()
+		coin2.destory()
 	else:
 		coin2.update_visually()
 		

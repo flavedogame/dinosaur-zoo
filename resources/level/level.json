@@ -6,7 +6,7 @@
         "dinosaur_quest_waiting_time":1,
         "dinosaur_action_interval_range":[0,0],
         "quest":[100],
-        "coin_value":[5,5],
+        "coin_value":[50,50],
         "coin_count":[2,2],
     },
     {

@@ -78,4 +78,46 @@
 
         ]
     },
+    {
+        "name":"calculate_10",
+        "reputation":4,
+        "first": {
+            "content": "Do you know how much is {equation}",
+            "next": "0"
+        },
+        "0": {
+            "content": "Show me how much is {equation}",
+            "next": "1"
+        },
+        "1": {
+            "content": "{equation}! I won't take your monkey!",
+        },
+        "completed": [
+            {
+                "first": 
+                {
+                    "content": "Oh my god! He can calculate!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "That's impossible!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "A monkey that can calcualte? Serious?",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Nah that's must just a coincident",
+                },
+            },
+
+        ]
+    },
 ]

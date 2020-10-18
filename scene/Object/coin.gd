@@ -21,6 +21,9 @@ var coin_type_sprites = [
 ]
 
 func init(_position,_target,_value):
+	while _value>=10:
+		_value/=10
+		coin_type+=1
 	value = _value
 	target_position = _target
 	origin_position = _position

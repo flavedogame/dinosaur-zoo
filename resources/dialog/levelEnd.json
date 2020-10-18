@@ -1,0 +1,41 @@
+{
+        "first": {
+            "speaker":"Center",
+            
+            "pivot":[0,0],
+            "content": "Let's see how did you do today..",
+            "ignext": "12",
+            
+            "after_trigger":"end"
+        },
+        "12": {
+            "speaker":"Center",
+            "pivot":[0,0],
+            "content": "You've earned {current_earning} today, {compare} yesterday's {last_earning}.",
+            "next": "12-1"
+        },
+        "12-1": {
+            "speaker":"Center",
+            "pivot":[0,0],
+            "content": "That's good, keep going!",
+            "next": "13"
+        },
+        "13": {
+            "speaker":"Center",
+            "pivot":[0,0],
+            "content": "You have {reputation} now, {compare} yesterday's {last_earning}.",
+            "next": "13-1"
+        },
+        "13-1": {
+            "speaker":"Curator",
+            "pivot":[-1,-1],
+            "content": "That's good, keep going!",
+            "next": "14-1"
+        },
+        "14": {
+            "speaker":"Curator",
+            "pivot":[-1,-1],
+            "content": "Well behave yourself tomorrow, tomorrow is another day!",
+            "after_trigger":"end"
+        },
+    },
