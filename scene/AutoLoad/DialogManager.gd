@@ -17,9 +17,10 @@ func select_chitchat(dianosaur):
 	
 	return select_dialog(dianosaur,chitchat_list[random_i])
 
+
 func select_dialog(dianosaur,chat,_is_quest = false):
 	var is_quest = _is_quest or chat.has("name")
-	var quest_param = {"quest_time":dianosaur.quest_waiting_time} if is_quest else null
+	var quest_param = {"quest_time":dianosaur.get_quest_waiting_time()} if is_quest else null
 	var dialog_position = dianosaur.dialog_position()
 	var dialog_instance = dialog.instance()
 	var dialog_size = Util.visitor_dialog_size

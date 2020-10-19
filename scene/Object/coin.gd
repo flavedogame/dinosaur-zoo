@@ -20,6 +20,9 @@ var coin_type_sprites = [
 	preload("res://art/object/coin_gold.png"),
 ]
 
+func get_value():
+	return value * pow(10, coin_type)
+
 func init(_position,_target,_value):
 	while _value>=10:
 		_value/=10

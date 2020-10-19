@@ -70,12 +70,12 @@ func finish_quest_dialog():
 		current_doing = THINGS_TODO.none
 		leave()
 
-func check_if_position_is_close(quest_args):
-	var monkey_position_index = quest_args.monkey_position_index
+func check_if_position_is_close():
+	var monkey_position_index = Util.get_player_position_index()
 	var dinosaur_position_index = Util.position_to_index(position)
 	var distance = monkey_position_index.distance_to(dinosaur_position_index)
 	#print("distance ",distance)
-	if distance <= 10:
+	if distance <= 7:
 		return true
 	return false
 
@@ -97,16 +97,30 @@ func quest_failed():
 	RewardManager.offer_reward(self,data)
 	print("failed quest")
 
-func test_quest(quest_name, quest_args):
+func test_calculate():
+	if check_if_position_is_close() and Util.Player.is_holding_value(selected_quest.value):
+		yield(quest_succeed(),"completed")
+
+func test_quest():
 	#print(quest_name," ",quest_args)
-	if quest_name == selected_quest.name:
-		match quest_name:
-			"come_close":
-				if check_if_position_is_close(quest_args):
-					yield(quest_succeed(),"completed")
-			"spin":
-				if check_if_position_is_close(quest_args):
-					yield(quest_succeed(),"completed")
+	#if quest_name == selected_quest.name:
+	match selected_quest.name:
+		"come_close":
+			if check_if_position_is_close():
+				yield(quest_succeed(),"completed")
+		"spin":
+			if check_if_position_is_close() and Util.Player.has_made_a_circle():
+				yield(quest_succeed(),"completed")
+		"plus_10":
+			yield(test_calculate(),"completed")
+		"plus_100":
+			yield(test_calculate(),"completed")
+		"plus_1000":
+			yield(test_calculate(),"completed")
+		"multi_100":
+			yield(test_calculate(),"completed")
+		"multi_1000":
+			yield(test_calculate(),"completed")
 		
 
 func select_quest():
@@ -119,9 +133,13 @@ func select_quest():
 	Events.connect("test_quest",self,"test_quest")
 	#don't know why use timer here will make queue_free for dialog not work
 	#yield(timer, "timeout")
-	yield(get_tree().create_timer(quest_waiting_time), "timeout")
+	yield(get_tree().create_timer(get_quest_waiting_time()), "timeout")
 	quest_failed()
 	print("failed quest")
+
+
+func get_quest_waiting_time():
+	return quest_waiting_time * selected_quest.get("waiting_time_scale",1)
 
 func select_chitchat():
 	var dialog_instance = DialogManager.select_chitchat(self)

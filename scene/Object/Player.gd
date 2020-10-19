@@ -51,11 +51,24 @@ func check_move_shape():
 		last_steps.pop_front()
 	last_steps.push_back(position_index)
 	#print(last_steps)
+
+func get_holding_value():
+	var res = 0
+	for i in holding_items:
+		res+=i.get_value()
+	return res
+
+func is_holding_value(value):
+	return get_holding_value() == value
+		
+
+func has_made_a_circle():
+	
 	if last_steps.size() >= 5:
 		var last_index = last_steps.size()-1
 		if last_steps[last_index] == last_steps[last_index-4] and last_steps[last_index]!=last_steps[last_index-1] and last_steps[last_index]!=last_steps[last_index-2]and last_steps[last_index]!=last_steps[last_index-3]:
-			Events.emit_signal("test_quest","spin",{"monkey_position_index":position_index})
-
+			return true
+	return false
 
 func get_collider(dir):
 	raycast.cast_to = dir*tile_size
@@ -75,7 +88,7 @@ func move(dir):
 			position_index+=dir
 			position = Util.index_to_position(position_index)
 			check_move_shape()
-			Events.emit_signal("test_quest","come_close",{"monkey_position_index":position_index})
+			Events.emit_signal("test_quest")
 
 func do_damage(damage = 1):
 	is_hiited = true

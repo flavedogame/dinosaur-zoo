@@ -254,6 +254,8 @@ func show_one_dialog_with_type_writing():
 			for i in placeholder_string_arr:
 				placeholder_value.append(DialogUtil.call(i))
 			text = text%placeholder_value
+		if dialog.has("placeholder_value"):
+			text = text%dialog.placeholder_value
 		#AutoCheckTranslation.addTranslation(text)
 		#text = tr(text)
 		format_text(text)
