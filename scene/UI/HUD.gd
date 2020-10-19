@@ -26,6 +26,7 @@ func on_repuration_change(_repuration):
 func init_level():
 	time_progress.value = ResourceManager.game_time
 	health_progress.value = ResourceManager.current_health
+	read_level_info()
 
 func _ready():
 	

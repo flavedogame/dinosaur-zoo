@@ -18,7 +18,7 @@ func get_levle_info():
 		push_error("level %d more than define"%current_level)
 	return level_infos[current_level]
 
-func get_next_level():
+func next_level():
 	current_level+=1
 	
 func get_level(level):

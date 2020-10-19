@@ -54,11 +54,6 @@ position = Vector2( 422.111, 265.964 )
 [node name="coin3" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
 position = Vector2( 404.758, 281.482 )
 
-[node name="Curator" type="Sprite" parent="zoo_scene/TileMap"]
-position = Vector2( 340.262, 265.133 )
-scale = Vector2( -1, 1 )
-texture = ExtResource( 4 )
-
 [node name="Center" type="Position2D" parent="zoo_scene/TileMap"]
 position = Vector2( 379.757, 242.104 )
 
@@ -70,6 +65,20 @@ scale = Vector2( 0.25, 0.25 )
 
 [node name="coin" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
 position = Vector2( 437.545, 282.343 )
+
+[node name="dialog_view" type="Node2D" parent="zoo_scene/TileMap"]
+visible = false
+
+[node name="Curator" type="Sprite" parent="zoo_scene/TileMap/dialog_view"]
+position = Vector2( 340.262, 265.133 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 4 )
+
+[node name="PlayerPosition" type="Position2D" parent="zoo_scene/TileMap/dialog_view"]
+position = Vector2( 422.298, 282 )
+
+[node name="warning" type="Node2D" parent="zoo_scene/TileMap"]
 
 [node name="Tween" type="Tween" parent="."]
 

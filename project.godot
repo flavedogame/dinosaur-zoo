@@ -28,6 +28,7 @@ MusicManager="*res://scene/AutoLoad/MusicManager.tscn"
 LevelManger="*res://scene/AutoLoad/LevelManger.gd"
 ResourceManager="*res://scene/AutoLoad/ResourceManager.gd"
 RewardManager="*res://scene/AutoLoad/RewardManager.gd"
+DialogUtil="*res://scene/AutoLoad/DialogUtil.gd"
 
 [display]
 

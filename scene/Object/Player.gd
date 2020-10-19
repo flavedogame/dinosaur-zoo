@@ -79,7 +79,7 @@ func move(dir):
 
 func do_damage(damage = 1):
 	is_hiited = true
-	ResourceManager.do_damage()
+	ResourceManager.do_damage(damage)
 	animation.current_animation = "hitted"
 	animation.play()
 	yield(animation,"animation_finished")

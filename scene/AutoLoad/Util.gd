@@ -20,6 +20,7 @@ var tilemap
 var Hud
 var visitor_dialog_parent
 var visitor_quest_parent
+var visitor_warning_parent
 var Player
 
 var DIR = [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]
@@ -46,6 +47,16 @@ func index_to_position(index):
 func is_in_border(index):
 	return index.x>=inborder_x_range[0] and index.x<=inborder_x_range[1] \
 		and index.y>=inborder_y_range[0] and index.y<=inborder_y_range[1]
+		
+func position_to_position(position):
+	var index = position_to_index(position)
+	return index_to_position(index)
+
+func position_move(character,dir):
+	var position = character.position
+	var index = position_to_index(position)
+	index+=dir
+	character.position = index_to_position(index)
 	
 func position_to_index(index):
 	var res = Vector2(floor(index.x/16),floor(index.y/16))
@@ -101,6 +112,9 @@ func random_distribution_array(array):
 	push_error("random array didn't return correctly")
 	return 0
 
+func clear_all_children(node):
+	for child in node.get_children():
+		child.queue_free()
 
 func load_json(file_path):
 	var file = File.new()

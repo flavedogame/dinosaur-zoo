@@ -48,7 +48,7 @@ func show_succeed_quest_dialog():
 func show_failed_quest_dialog():
 	
 	var reputation = selected_quest.reputation
-	ResourceManager.add_reputation(-reputation/2)
+	ResourceManager.add_reputation(-reputation)
 	var failed_quest_dialog = QuestManager.select_failed_quest_dialog(selected_quest)
 	current_dialog = DialogManager.select_dialog(self,failed_quest_dialog)
 	print(failed_quest_dialog)

@@ -14,7 +14,7 @@ func throw_coin(dinosaur,coin_data):
 	for k in coin_data:
 		var coin_instance = coin_scene.instance()
 		coin_instance.init(dinosaur.position,k,coin_data[k])
-		Util.tilemap.add_child(coin_instance)
+		Util.visitor_warning_parent.add_child(coin_instance)
 	
 func split_coin(value_list):
 	var res = []
@@ -86,8 +86,6 @@ func offer_reward(dinosaur,previous_data):
 	#previous_data[1].queue_free()
 	var coin = previous_data[0]
 	var total_coin_value = previous_data[2]
-	#var reputation = 1
-	#ResourceManager.add_reputation(reputation)
 	
 	throw_coin(dinosaur,coin)
 	

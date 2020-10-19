@@ -45,10 +45,14 @@ func init(_position, _dialog,_quest_params,dialog_size):
 		quest_time = _quest_params.quest_time
 	
 func update_pivot():
+	
 	var pivot = current_dialog.get("pivot",[0,-1])
 	var position_offset = Vector2(rect_size.x*pivot[0],rect_size.y*pivot[1])
-	rect_position+=position_offset
 	
+	var rp = parent_node.get(current_dialog['speaker']).get_global_position()
+	var origin_rect_position = rp
+	origin_rect_position+=position_offset
+	rect_position=origin_rect_position
 	
 func init_with_parent_node(_parent_node, _dialog,_is_quest):
 	dialog = _dialog
@@ -58,6 +62,7 @@ func init_with_parent_node(_parent_node, _dialog,_is_quest):
 	var speaker_name = current_dialog['speaker']
 	speaker = parent_node.get(current_dialog['speaker'])
 	var g_position = speaker.get_global_position()
+	var rp = parent_node.get(current_dialog['speaker']).get_global_position()
 	rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
 	click_to_continue = true
 	
@@ -211,7 +216,7 @@ func check_newlines(string):
 		
 func show_one_dialog_with_type_writing():
 	yield(get_tree(), 'idle_frame')
-	if parent_node:
+	if parent_node and current_dialog.has("speaker"):
 		var speaker_name = current_dialog['speaker']
 		var speaker = parent_node.get(current_dialog['speaker'])
 		var g_position = speaker.get_global_position()
@@ -221,6 +226,7 @@ func show_one_dialog_with_type_writing():
 	#hide_name(name_left)
 	#hide_name(name_right)
 	
+	panel.visible = true
 	#clean()
 	#current = step
 	number_characters = 0 # Resets the counter
@@ -228,49 +234,68 @@ func show_one_dialog_with_type_writing():
 #	match step['type']:
 #		'text': # Simple text.
 			#not_question()
-	var text = current_dialog['content']
-	#AutoCheckTranslation.addTranslation(text)
-	#text = tr(text)
-	format_text(text)
-	#check_animation(step)
-	#check_names(step)
-#		'action':
-#			rect_size.y = 0
-#			match step['operation']:
-#				'get_character':
-#					PartyManager.add_party_member(step['value'])
-	
-	if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
-		label.visible_characters = 0
-		start_typewriting()
-		timer.wait_time = wait_time
-		
-		#timer.start()
-		while label.visible_characters < number_characters:
-			if paused:
-				yield(update_pause(),"completed")
-				 # If in pause, ignore the rest of the function.
-
-			if pause_array.size() > 0: # Check if the phrase have any pauses left.
-				if label.visible_characters == pause_array[pause_index]: # pause_char == index of the last character before pause.
-					#timer.wait_time = pause_time #* wait_time * 10
-					paused = true
+	print("current_dialog0",current_dialog)
+	if current_dialog.has("divert"):
+		match current_dialog["condition"]:
+			"boolean":
+				var variable = current_dialog["variable"]
+				var next
+				if DialogUtil.call(variable):
+					next = current_dialog["true"]
 				else:
-					label.visible_characters += 1
-			else: # Phrase doesn't have any pauses.
-				label.visible_characters += 1
+					next = current_dialog["false"]
+				current_dialog = dialog[next]
+				yield(show_one_dialog(),"completed")
+	else:
+		var text = current_dialog['content']
+		if current_dialog.has("placeholder_value"):
+			var placeholder_string_arr = current_dialog.placeholder_value
+			var placeholder_value  = []
+			for i in placeholder_string_arr:
+				placeholder_value.append(DialogUtil.call(i))
+			text = text%placeholder_value
+		#AutoCheckTranslation.addTranslation(text)
+		#text = tr(text)
+		format_text(text)
+		#check_animation(step)
+		#check_names(step)
+	#		'action':
+	#			rect_size.y = 0
+	#			match step['operation']:
+	#				'get_character':
+	#					PartyManager.add_party_member(step['value'])
+		
+		if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
+			label.visible_characters = 0
+			start_typewriting()
+			timer.wait_time = wait_time
 			
+			#timer.start()
+			while label.visible_characters < number_characters:
+				if paused:
+					yield(update_pause(),"completed")
+					 # If in pause, ignore the rest of the function.
+	
+				if pause_array.size() > 0: # Check if the phrase have any pauses left.
+					if label.visible_characters == pause_array[pause_index]: # pause_char == index of the last character before pause.
+						#timer.wait_time = pause_time #* wait_time * 10
+						paused = true
+					else:
+						label.visible_characters += 1
+				else: # Phrase doesn't have any pauses.
+					label.visible_characters += 1
+				
+				timer.start()
+				yield(timer,"timeout")
+		stop_typewriting()
+		if not click_to_continue:
+			timer.wait_time =dialog_wait_time
 			timer.start()
 			yield(timer,"timeout")
-	stop_typewriting()
-	if not click_to_continue:
-		timer.wait_time =dialog_wait_time
-		timer.start()
-		yield(timer,"timeout")
-	yield(get_tree(), 'idle_frame')
-#	elif enable_continue_indicator: # If typewriter effect is disabled check if the ContinueIndicator should be displayed
-#		continue_indicator.show()
-#		animations.play('Continue_Indicator')
+		yield(get_tree(), 'idle_frame')
+	#	elif enable_continue_indicator: # If typewriter effect is disabled check if the ContinueIndicator should be displayed
+	#		continue_indicator.show()
+	#		animations.play('Continue_Indicator')
 
 func check_trigger_common(trigger_type):
 	if current_dialog.has(trigger_type):

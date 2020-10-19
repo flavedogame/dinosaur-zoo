@@ -3,13 +3,14 @@ extends Node
 
 var game_time
 var current_earning = 0
-var last_earning
+var last_earning = 0
 var current_population = 0
-var last_population
-var passed_time
+var last_population = 0
+var passed_time = 0
 var max_health = 100
 var level_started = false
 var current_health = max_health
+
 
 var coin_type = [1,10,100]
 var coin_type_list = ["bronze","silver","gold"]
@@ -65,10 +66,19 @@ func do_damage(damage = 1):
 	current_health-=damage
 	Events.emit_signal("update_current_health",current_health)
 	
+func is_level_end():
+	var level_info = LevelManger.get_levle_info()
+	var level_length = level_info.level_length
+	return passed_time>=level_length
+
 func _process(delta):
 	if level_started:
 		passed_time+=delta
 		Events.emit_signal("update_current_time",passed_time)
+		
+		if is_level_end():
+			Events.emit_signal("level_end")
+			level_started = false
 
 func _ready():
 	pass # Replace with function body.

@@ -87,7 +87,7 @@ func set_generate_timer():
 	timer.wait_time = Util.randomf_range_array(dinosaur_generation_range)
 
 func _on_Timer_timeout():
-	if dianosaur_invalid_position.size() < level_max_dinosaur:
+	if dianosaur_invalid_position.size() < level_max_dinosaur and ResourceManager.level_started:
 		var dinosaur_instance = dinosaur.instance()
 		dinosaur_instance.init(dinosaur_quest_waiting_time, dinosaur_action_interval_range)
 		set_dinosaur_position(dinosaur_instance)
