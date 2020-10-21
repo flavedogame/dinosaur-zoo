@@ -12,6 +12,7 @@ var walk_time = 0.1
 var face
 var position_index
 var arrived = false
+var quest_close_distance = 10
 
 var do_thing_time_range = [0,1]
 var doing_things_rate = [10,50,0]
@@ -75,7 +76,7 @@ func check_if_position_is_close():
 	var dinosaur_position_index = Util.position_to_index(position)
 	var distance = monkey_position_index.distance_to(dinosaur_position_index)
 	#print("distance ",distance)
-	if distance <= 7:
+	if distance <= quest_close_distance:
 		return true
 	return false
 
@@ -117,6 +118,8 @@ func test_quest():
 		"plus_100":
 			yield(test_calculate(),"completed")
 		"plus_1000":
+			yield(test_calculate(),"completed")
+		"plus_200":
 			yield(test_calculate(),"completed")
 		"multi_100":
 			yield(test_calculate(),"completed")

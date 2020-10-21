@@ -27,8 +27,10 @@ func generate_plus_quest(value,quest):
 	quest["value"] = value
 	quest["placeholder_value"] = "%d plus %d"%[plus_number1,plus_number2]
 	
-func generate_multi_quest(value,quest):
-	pass
+func generate_multi_quest(value1,value2,quest):
+	var value = value1*value2
+	quest["value"] = value
+	quest["placeholder_value"] = "%d times %d"%[value1,value2]
 	
 func select_quest(dinosaur):
 #	if dinosaur.has("quest"):
@@ -43,13 +45,22 @@ func select_quest(dinosaur):
 			var value = Util.rng.randi_range(2,9)
 			generate_plus_quest(value,quest)
 		"plus_100":
-			var value = Util.rng.randi_range(11,99)
+			var value = Util.rng.randi_range(11,30)
 			generate_plus_quest(value,quest)
 		"plus_1000":
-			var value = Util.rng.randi_range(101,999)
+			var value = Util.rng.randi_range(31,100)
+			generate_plus_quest(value,quest)
+		"plus_200":
+			var value = Util.rng.randi_range(101,200)
 			generate_plus_quest(value,quest)
 		"multi_100":
-			pass
+			var value1 = Util.rng.randi_range(2,9)
+			var value2 = Util.rng.randi_range(2,9)
+			generate_multi_quest(value1,value2,quest)
+		"multi_1000":
+			var value1 = Util.rng.randi_range(2,9)
+			var value2 = Util.rng.randi_range(11,19)
+			generate_multi_quest(value1,value2,quest)
 	return quest
 			
 #	var random_i = Util.randomi_array_size(normal_list)

@@ -46,6 +46,7 @@ func save_level_data():
 		saved_data[current_level] = data
 	else:
 		saved_data.append(data)
+	Events.emit_signal("save_globally")
 
 func load_saved_data(data):
 	current_level = data["day"]-2
@@ -53,3 +54,14 @@ func load_saved_data(data):
 	ResourceManager.current_earning = data["earning"]
 	ResourceManager.current_reputation = data["reputation"]
 
+
+var Level_SAVE_KEY = "levels"
+
+func save(saved_game: Resource):
+	saved_game.data[Level_SAVE_KEY] = saved_data
+	
+func load(saved_game: Resource):
+	if not saved_game.data.has(Level_SAVE_KEY):
+		saved_data = []
+	else:
+		saved_data = saved_game.data[Level_SAVE_KEY]

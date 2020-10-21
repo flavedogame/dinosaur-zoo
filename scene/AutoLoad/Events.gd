@@ -19,3 +19,5 @@ signal get_max_level()
 signal game_end()
 signal game_start()
 
+signal save_globally()
+

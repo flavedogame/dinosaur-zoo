@@ -260,7 +260,134 @@
         "reputation":10,
         "placeholder_value":"",
         "value":10,
-        "waiting_time_scale":2,
+        "waiting_time_scale":4,
+        "first": {
+            "content": "Do you know how much is %s",
+            "next": "0"
+        },
+        "0": {
+            "content": "%s equals? I don't think he understand times",
+            "next": "1"
+        },
+        "1": {
+            "content": "%s = ? There is no way he can give the answer",
+        },
+        "completed": [
+            {
+                "first": 
+                {
+                    "content": "Seriously? He can calculate in 1000>",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Just. Impossible.",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "This Monkey is smarter than my son..",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Can you calculate what's the odd that this is just coincident?",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "My record of this will get 10k+ in days!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Police! There is an alien here!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "He is a GIANT in my eyes",
+                },
+            },
+
+        ]
+    },
+    
+    {
+        "name":"plus_200",
+        "reputation":16,
+        "placeholder_value":"",
+        "value":10,
+        "waiting_time_scale":5,
+        "first": {
+            "content": "Do you know how much is %s",
+            "next": "0"
+        },
+        "0": {
+            "content": "%s equals? This is really insane",
+            "next": "1"
+        },
+        "1": {
+            "content": "%s = ? I bet you can't get the answer.",
+        },
+        "completed": [
+            {
+                "first": 
+                {
+                    "content": "Seriously? He can calculate value bigger than 100!!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "..I don't know what to say",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "This Monkey is smarter than me..",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Can you calculate what's the odd that this is just coincident?",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "My record of this will get 10k+ in days!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "Police! There is an alien here!",
+                },
+            },
+            {
+                "first": 
+                {
+                    "content": "He is a GIANT in my eyes",
+                },
+            },
+
+        ]
+    },
+    {
+        "name":"multi_1000",
+        "reputation":10,
+        "placeholder_value":"",
+        "value":10,
+        "waiting_time_scale":10,
         "first": {
             "content": "Do you know how much is %s",
             "next": "0"

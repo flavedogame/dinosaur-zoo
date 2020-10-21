@@ -1,0 +1,145 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scene/AutoLoad/SavedGame.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+game_version = ""
+data = {
+"levels": [ {
+"day": 1,
+"earning": 0,
+"health": 100,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 2,
+"minute": 8,
+"month": 10,
+"second": 2,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 2,
+"earning": 0,
+"health": 80,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 1,
+"minute": 55,
+"month": 10,
+"second": 14,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 3,
+"earning": 0,
+"health": 70,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 1,
+"minute": 55,
+"month": 10,
+"second": 18,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 4,
+"earning": 0,
+"health": 40,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 2,
+"minute": 8,
+"month": 10,
+"second": 24,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 5,
+"earning": 0,
+"health": 40,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 1,
+"minute": 56,
+"month": 10,
+"second": 32,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 6,
+"earning": 217,
+"health": 35,
+"reputation": -46.0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 1,
+"minute": 59,
+"month": 10,
+"second": 5,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 7,
+"earning": 0,
+"health": 30,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 1,
+"minute": 55,
+"month": 10,
+"second": 36,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 8,
+"earning": 0,
+"health": 20,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 1,
+"minute": 55,
+"month": 10,
+"second": 41,
+"weekday": 3,
+"year": 2020
+}
+}, {
+"day": 9,
+"earning": 0,
+"health": 20,
+"reputation": 0,
+"saved_time": {
+"day": 21,
+"dst": false,
+"hour": 1,
+"minute": 55,
+"month": 10,
+"second": 45,
+"weekday": 3,
+"year": 2020
+}
+} ]
+}

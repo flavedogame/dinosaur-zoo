@@ -86,13 +86,12 @@ func show_one_dialog():
 #	timer.wait_time = dialog_wait_time
 #	timer.start()
 #	yield(timer,"timeout")
-	if DebugSetting.skip_dialog:
-		
-		yield(check_after_trigger(),"completed")
-		yield(next(),"completed")
-	if click_to_continue:
+	if click_to_continue and not DebugSetting.skip_dialog:
 		
 		yield(self,"skip_dialog_signal")
+	
+	yield(check_after_trigger(),"completed")
+	yield(next(),"completed")
 
 func next():
 	if current_dialog.has("next"):

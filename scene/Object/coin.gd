@@ -9,13 +9,15 @@ var origin_position
 var is_destoryed = false
 var is_picked_up = false
 
+
 onready var tween = $Tween
 onready var label = $Node2D/Label
 onready var raycast = $RayCast2D
 onready var coin_sprite = $coin_sprite
 onready var collision_shape = $CollisionShape2D
 
-var is_flying = true
+#var is_flying = true
+var is_safe = true
 
 var coin_type_sprites = [
 	preload("res://art/object/coin_brown.png"),
@@ -41,7 +43,6 @@ func picked_up(_is_picked_up):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	update_visually()
-	collision_shape.disabled = true
 	if origin_position:
 		position = origin_position
 		tween.interpolate_property(
@@ -51,12 +52,10 @@ func _ready():
 				Tween.TRANS_QUART, Tween.EASE_IN)
 		tween.start()
 		yield(tween,"tween_completed")
-		collision_shape.disabled = false
+		check_collide()
 		
 	
-func _process(delta):
-	if not is_picked_up:
-		check_collide()
+
 	
 func check_collide():
 	#print("check collide")
