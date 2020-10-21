@@ -2,4 +2,4 @@ extends Node
 
 
 var skip_dialog = true
-var skip_main_game = true
+var skip_main_game = false

@@ -49,7 +49,11 @@ func _ready():
 	
 	LevelManger.save_level_data()
 	
-
+func level_continue():
+	LevelManger.next_level()
+	ResourceManager.level_start()
+	#wait until black in and out finished
+	level_start()
 	
 func level_start():
 	

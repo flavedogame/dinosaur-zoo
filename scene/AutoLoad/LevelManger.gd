@@ -18,7 +18,10 @@ func load_chitchat():
 func get_levle_info():
 	if current_level>= level_infos.size():
 		push_error("level %d more than define"%current_level)
-	return level_infos[current_level]
+	var res = level_infos[current_level].duplicate()
+	if DebugSetting.skip_main_game:
+		res.level_length = 1
+	return res
 
 func next_level():
 	current_level+=1
@@ -43,3 +46,10 @@ func save_level_data():
 		saved_data[current_level] = data
 	else:
 		saved_data.append(data)
+
+func load_saved_data(data):
+	current_level = data["day"]-2
+	ResourceManager.current_health = data["health"]
+	ResourceManager.current_earning = data["earning"]
+	ResourceManager.current_reputation = data["reputation"]
+
