@@ -3,14 +3,14 @@
 [ext_resource path="res://scene/UI/StartingPage.gd" type="Script" id=1]
 [ext_resource path="res://fonts/info font_large.tres" type="DynamicFont" id=2]
 
-[sub_resource type="Theme" id=2]
+[sub_resource type="Theme" id=1]
 default_font = ExtResource( 2 )
 Fonts/fonts/ = ExtResource( 2 )
 
 [node name="StartingPage" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = SubResource( 2 )
+theme = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -24,9 +24,8 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = -1.0
 margin_right = 3072.0
-margin_bottom = 799.0
+margin_bottom = 800.0
 rect_min_size = Vector2( 0, 800 )
 text = "Dinosaur planet"
 align = 1
@@ -38,4 +37,12 @@ margin_right = 3072.0
 margin_bottom = 1004.0
 rect_min_size = Vector2( 0, 200 )
 text = "Start Game"
+
+[node name="Continue" type="Button" parent="VBoxContainer"]
+margin_top = 1008.0
+margin_right = 3072.0
+margin_bottom = 1208.0
+rect_min_size = Vector2( 0, 200 )
+text = "Continue Level"
 [connection signal="pressed" from="VBoxContainer/StartGame" to="." method="_on_StartGame_pressed"]
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_Continue_pressed"]

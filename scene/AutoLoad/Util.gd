@@ -24,6 +24,11 @@ var visitor_warning_parent
 var Player
 var game_root
 
+func reload_scene(scene):
+	var game_instance = scene.instance()
+	clear_all_children(game_root)
+	game_root.add_child(game_instance)
+
 var DIR = [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]
 
 func reparent(child: Node, new_parent: Node):

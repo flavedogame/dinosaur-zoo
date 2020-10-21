@@ -7,6 +7,7 @@ func switch_ending(ending_name):
 	ending_view_instance.init(ending_name)
 	Util.clear_all_children(Util.game_root)
 	Util.game_root.add_child(ending_view_instance)
+	
 
 func on_health_depleted():
 	switch_ending("health_depleted")

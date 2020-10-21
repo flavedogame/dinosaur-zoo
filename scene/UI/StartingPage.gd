@@ -1,5 +1,6 @@
 extends Control
 
+var level_selection_scene = preload("res://scene/UI/LevelSelection.tscn")
 
 func _ready():
 	MusicManager.play_music("start")
@@ -12,3 +13,6 @@ func _ready():
 
 func _on_StartGame_pressed():
 	Events.emit_signal("game_start")
+	
+func _on_Continue_pressed():
+	Util.reload_scene(level_selection_scene)

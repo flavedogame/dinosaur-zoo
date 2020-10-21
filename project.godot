@@ -31,6 +31,7 @@ RewardManager="*res://scene/AutoLoad/RewardManager.gd"
 DialogUtil="*res://scene/AutoLoad/DialogUtil.gd"
 EndingManager="*res://scene/AutoLoad/EndingManager.gd"
 AchievementManager="*res://scene/AutoLoad/AchievementManager.gd"
+DebugSetting="*res://scene/AutoLoad/DebugSetting.gd"
 
 [display]
 

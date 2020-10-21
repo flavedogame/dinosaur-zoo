@@ -26,6 +26,7 @@ var coreGameManager = preload("res://scene/CoreGameManager.tscn")
 
 var dialog
 
+
 func get_level():
 	return LevelManger.current_level
 	
@@ -45,7 +46,13 @@ func _ready():
 	Util.tilemap = $zoo_scene/TileMap
 	Events.connect("level_end",self,"level_end")
 	
+	
+	LevelManger.save_level_data()
+	
+
+	
 func level_start():
+	
 	
 	yield(show_blackout(),"completed")
 	hide_balckout()
@@ -55,6 +62,7 @@ func level_start():
 	show_current_dialog()
 	
 func level_end():
+	ResourceManager.is_main_game_started = false
 	Util.clear_all_children(ingame_dialogs)
 	Util.clear_all_children(ingame_quests)
 	Util.clear_all_children(ingame_warnings)
@@ -82,6 +90,7 @@ func show_current_dialog():
 func finishLevelStart():
 	#todo curator leave
 	var coreGameManager_instance = coreGameManager.instance()
+	ResourceManager.is_main_game_started = true
 	zoo_scene.add_child(coreGameManager_instance)
 	dialog_view.visible = false
 	dialog_instance.queue_free()
@@ -100,7 +109,10 @@ func finishLevelEnd():
 	dialog_view.visible = false
 	dialog_instance.queue_free()
 	
+	LevelManger.save_level_data()
+	
 	LevelManger.next_level()
+	ResourceManager.level_start()
 	#wait until black in and out finished
 	level_start()
 
@@ -133,3 +145,6 @@ func trigger(trigger_name):
 func _on_Button_pressed():
 	if dialog_instance:
 		dialog_instance.skip_dialog()
+
+func _on_Button2_pressed():
+	Events.emit_signal("game_end")

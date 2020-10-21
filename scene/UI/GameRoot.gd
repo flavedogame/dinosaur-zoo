@@ -14,9 +14,7 @@ func _ready():
 	Events.connect("game_end",self,"on_game_end")
 
 func reload_scene(scene):
-	var game_instance = scene.instance()
-	Util.clear_all_children(control)
-	control.add_child(game_instance)
+	Util.reload_scene(scene)
 
 func on_game_start():
 	reload_scene(game_scene)

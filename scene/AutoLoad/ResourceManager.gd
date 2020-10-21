@@ -4,12 +4,13 @@ extends Node
 var game_time
 var current_earning = 0
 var last_earning = 0
-var current_population = 0
-var last_population = 0
+var current_reputation = 0
+var last_reputation = 0
 var passed_time = 0
 var max_health = 100
 var level_started = false
 var current_health = max_health
+var is_main_game_started = false
 
 
 var coin_type = [1,10,100]
@@ -50,18 +51,18 @@ func add_coin(_coin):
 	Events.emit_signal("update_current_earning",current_earning)
 	
 func add_reputation(_repu):
-	current_population+=_repu
-	Events.emit_signal("update_current_reputation",current_population)
+	current_reputation+=_repu
+	Events.emit_signal("update_current_reputation",current_reputation)
 	
 func level_start():
 	level_started = true
 	passed_time = 0
 	last_earning = current_earning
-	last_population = current_population
+	last_reputation = current_reputation
 	current_earning = 0
 	
 	Events.emit_signal("update_current_earning",current_earning)
-	Events.emit_signal("update_current_reputation",current_population)
+	Events.emit_signal("update_current_reputation",current_reputation)
 	
 func do_damage(damage = 1):
 	current_health-=damage
@@ -75,7 +76,7 @@ func is_level_end():
 	return passed_time>=level_length
 
 func _process(delta):
-	if level_started:
+	if is_main_game_started:
 		passed_time+=delta
 		Events.emit_signal("update_current_time",passed_time)
 		

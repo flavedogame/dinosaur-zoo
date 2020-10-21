@@ -30,16 +30,16 @@ func _ready():
 	Util.Player = self
 	
 func get_input():
-	
-	if not is_moving_waiting and not is_hiited:
-		if Input.is_action_pressed(interact_input):
-			for dir in inputs.keys():
-				if Input.is_action_just_pressed(dir):
-					interact(inputs[dir])
-		else:
-			for dir in inputs.keys():
-				if Input.is_action_pressed(dir):
-					move(inputs[dir])
+	if ResourceManager.is_main_game_started:
+		if not is_moving_waiting and not is_hiited:
+			if Input.is_action_pressed(interact_input):
+				for dir in inputs.keys():
+					if Input.is_action_just_pressed(dir):
+						interact(inputs[dir])
+			else:
+				for dir in inputs.keys():
+					if Input.is_action_pressed(dir):
+						move(inputs[dir])
 
 func _physics_process(delta):
 	get_input()

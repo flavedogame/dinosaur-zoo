@@ -8,7 +8,7 @@ onready var sfx = $sfx
 
 var speaker
 
-var dialog_wait_time = 2
+var dialog_wait_time =  2
 var dialog
 var current_dialog
 var is_quest
@@ -86,11 +86,13 @@ func show_one_dialog():
 #	timer.wait_time = dialog_wait_time
 #	timer.start()
 #	yield(timer,"timeout")
+	if DebugSetting.skip_dialog:
+		
+		yield(check_after_trigger(),"completed")
+		yield(next(),"completed")
 	if click_to_continue:
 		
 		yield(self,"skip_dialog_signal")
-	yield(check_after_trigger(),"completed")
-	yield(next(),"completed")
 
 func next():
 	if current_dialog.has("next"):
@@ -101,7 +103,7 @@ func next():
 	
 
 #type writing
-var wait_time : float = 0.03 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
+var wait_time : float = 0 if DebugSetting.skip_dialog else 0.03 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
 var pause_time : float = 0.4 # Duration of each pause when the typewriter effect is active.
 var pause_char : String = '|' # The character used in the JSON file to define where pauses should be. If you change this you'll need to edit all your dialogue files.
 var newline_char : String = '@' # The character used in the JSON file to break lines. If you change this you'll need to edit all your dialogue files.
@@ -295,6 +297,10 @@ func show_one_dialog_with_type_writing():
 				timer.start()
 				yield(timer,"timeout")
 		stop_typewriting()
+		if DebugSetting.skip_dialog:
+			stop_typewriting()
+			yield(get_tree(), 'idle_frame')
+			return
 		if not click_to_continue:
 			timer.wait_time =dialog_wait_time
 			timer.start()
@@ -319,34 +325,6 @@ func check_trigger():
 func check_after_trigger():
 	yield(check_trigger_common("after_trigger"),"completed")
 
-func _on_Timer_timeout():
-	pass
-#	if label.visible_characters < number_characters: # Check if the timer needs to be started
-#		if paused:
-#			update_pause()
-#			return # If in pause, ignore the rest of the function.
-#
-#		if pause_array.size() > 0: # Check if the phrase have any pauses left.
-#			if label.visible_characters == pause_array[pause_index]: # pause_char == index of the last character before pause.
-#				timer.wait_time = pause_time #* wait_time * 10
-#				paused = true
-#			else:
-#				label.visible_characters += 1
-#		else: # Phrase doesn't have any pauses.
-#			label.visible_characters += 1
-#
-#		timer.start()
-#	else:
-##		if is_question:
-##			choices.get_child(0).self_modulate = active_choice
-##		elif dialogue and enable_continue_indicator:
-##			animations.play('Continue_Indicator')
-##			continue_indicator.show()
-#		timer.stop()
-#		typewriting_finished = true
-#		return
-		
-#return if typewriting has already stopped
 
 func skip_dialog():
 	stop_typewriting()
@@ -355,14 +333,7 @@ func stop_typewriting():
 	if typewriting_finished:
 		emit_signal("skip_dialog_signal")
 		return true
-#		if one_dialog_finished:
-#			return true
-#		else:
-#			one_dialog_finished = true
-#			timer.wait_time = 0
-#			return false
 	finish_typewriting()
-	#timer.stop()
 	label.visible_characters = number_characters
 	return false
 	
