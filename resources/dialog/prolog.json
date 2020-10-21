@@ -2,8 +2,7 @@
         "first": {
             "speaker":"Spaceship",
             "content": "This time travel is almost end..",
-            "after_trigger":"end",
-            "ignext": "0",
+            "next": "0",
         },
         "0": {
             "speaker":"Spaceship",

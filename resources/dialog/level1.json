@@ -15,7 +15,7 @@
         "13": {
             "speaker":"Curator",
             "pivot":[-1,-1],
-            "content": "You can make a circle to show you are following this instruction.",
+            "content": "You can make a circle to show you are following their instruction.",
             "next": "14"
         },
         "14": {
@@ -28,7 +28,7 @@
         "15": {
             "speaker":"Curator",
             "pivot":[-1,-1],
-            "content": "Remeber you have to do that close to the visitor.",
+            "content": "Remeber you have to do that [color=red]close to the visitor.[/color]",
             "next": "16"
         },
         "16": {

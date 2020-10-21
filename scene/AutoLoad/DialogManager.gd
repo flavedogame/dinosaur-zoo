@@ -27,8 +27,8 @@ func select_dialog(dianosaur,chat,_is_quest = false):
 	dialog_instance.init(dialog_position, chat,quest_param, dialog_size)
 	return dialog_instance
 
-func select_dialog_multiple(_parent_node, chat):
+func select_dialog_multiple(_parent_node, chat, dialog_size = null):
 	var is_quest = chat.has("name")
 	var dialog_instance = dialog.instance()
-	dialog_instance.init_with_parent_node(_parent_node, chat,is_quest)
+	dialog_instance.init_with_parent_node(_parent_node, chat,is_quest, dialog_size)
 	return dialog_instance

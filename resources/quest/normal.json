@@ -83,7 +83,7 @@
         "reputation":6,
         "placeholder_value":"",
         "value":10,
-        "waiting_time_scale":1.5,
+        "waiting_time_scale":2,
         "first": {
             "content": "Do you know how much is %s",
             "next": "0"
@@ -134,7 +134,7 @@
         "reputation":10,
         "placeholder_value":"",
         "value":10,
-        "waiting_time_scale":2,
+        "waiting_time_scale":3,
         "first": {
             "content": "Do you know how much is %s",
             "next": "0"
@@ -194,10 +194,10 @@
     },
     {
         "name":"plus_1000",
-        "reputation":10,
+        "reputation":16,
         "placeholder_value":"",
         "value":10,
-        "waiting_time_scale":3,
+        "waiting_time_scale":4,
         "first": {
             "content": "Do you know how much is %s",
             "next": "0"

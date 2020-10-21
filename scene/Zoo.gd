@@ -11,6 +11,8 @@ onready var Center = $zoo_scene/TileMap/Center
 onready var ingame_dialogs = $zoo_scene/TileMap/dialog
 onready var ingame_quests = $zoo_scene/TileMap/quest
 onready var ingame_warnings = $zoo_scene/TileMap/warning
+onready var blackout = $CanvasLayer/BlackOut
+onready var blackout_label = $CanvasLayer/BlackOut/Label
 
 onready var curator_dialog = $zoo_scene/TileMap/dialog
 
@@ -44,6 +46,10 @@ func _ready():
 	Events.connect("level_end",self,"level_end")
 	
 func level_start():
+	
+	yield(show_blackout(),"completed")
+	hide_balckout()
+	
 	load_dialog_view()
 	load_level_dialog()
 	show_current_dialog()
@@ -81,10 +87,19 @@ func finishLevelStart():
 	dialog_instance.queue_free()
 	#Events.emit_signal("finish_level_start_dialog")
 	
+func show_blackout():
+	blackout.visible = true
+	blackout_label.text = "Day %d"%(LevelManger.current_level+1)
+	yield(get_tree().create_timer(2), "timeout")
+	
+func hide_balckout():
+	blackout.visible = false
+	
 func finishLevelEnd():
 	#todo black in and out
 	dialog_view.visible = false
 	dialog_instance.queue_free()
+	
 	LevelManger.next_level()
 	#wait until black in and out finished
 	level_start()

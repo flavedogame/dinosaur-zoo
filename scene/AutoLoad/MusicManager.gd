@@ -15,7 +15,7 @@ var sfx_dict = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	MusicManager.play_music("start")
+	pass
 
 func play_music(music_name):
 	player.stream = music_dict[music_name]

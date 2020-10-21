@@ -23,6 +23,7 @@ var click_to_continue = false
 var current_time = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	panel.visible = false
 	if is_quest:
 		main_panel.color = Color("fff8c3")
 		progress_bar.visible = true
@@ -33,7 +34,8 @@ func _ready():
 	
 func _process(delta):
 	current_time+=delta
-	if progress_bar and is_quest:
+	#todo: ???  why need quest_time
+	if progress_bar and is_quest and quest_time:
 		progress_bar.value = current_time/quest_time
 	
 func init(_position, _dialog,_quest_params,dialog_size):
@@ -54,16 +56,19 @@ func update_pivot():
 	origin_rect_position+=position_offset
 	rect_position=origin_rect_position
 	
-func init_with_parent_node(_parent_node, _dialog,_is_quest):
+func init_with_parent_node(_parent_node, _dialog,_is_quest, dialog_size = null):
 	dialog = _dialog
+	if dialog_size:
+		rect_size = dialog_size
 	parent_node = _parent_node
 	is_quest = _is_quest
 	current_dialog = dialog["first"]
-	var speaker_name = current_dialog['speaker']
-	speaker = parent_node.get(current_dialog['speaker'])
-	var g_position = speaker.get_global_position()
-	var rp = parent_node.get(current_dialog['speaker']).get_global_position()
-	rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
+	if current_dialog.has("speaker"):
+		var speaker_name = current_dialog['speaker']
+		speaker = parent_node.get(current_dialog['speaker'])
+		var g_position = speaker.get_global_position()
+		var rp = parent_node.get(current_dialog['speaker']).get_global_position()
+		rect_position = parent_node.get(current_dialog['speaker']).get_global_position()
 	click_to_continue = true
 	
 func start_dialog():
@@ -387,3 +392,7 @@ func update_pause():
 #	timer.wait_time = wait_time
 #	timer.start()
 
+
+
+func _on_Button_pressed():
+	skip_dialog()

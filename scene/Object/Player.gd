@@ -99,10 +99,13 @@ func do_damage(damage = 1):
 	is_hiited = false
 
 func pick_up(item):
-	item.picked_up(true)
-	Util.reparent(item,self)
-	item.position = hold_item_position.position + (hold_item_position_next.position-hold_item_position.position)*holding_items.size()
-	holding_items.append(item)
+	#todo: use text or animation to show can't hold
+	#todo: hmm this might cause player get stuck somewhere..
+	if holding_items.size()<=10:
+		item.picked_up(true)
+		Util.reparent(item,self)
+		item.position = hold_item_position.position + (hold_item_position_next.position-hold_item_position.position)*holding_items.size()
+		holding_items.append(item)
 	
 func drop_down(item,dir):
 	Util.reparent(item,Util.tilemap)

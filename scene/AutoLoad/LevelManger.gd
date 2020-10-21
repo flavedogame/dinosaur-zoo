@@ -20,6 +20,8 @@ func get_levle_info():
 
 func next_level():
 	current_level+=1
+	if current_level >=level_infos.size():
+		Events.emit_signal("get_max_level")
 	
 func get_level(level):
 	current_level=level

@@ -19,15 +19,16 @@ margin_left = -1536.0
 margin_top = -900.0
 margin_right = -636.0
 margin_bottom = -690.0
+mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -40,6 +41,7 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = -3.0
 margin_bottom = -3.0
+mouse_filter = 1
 color = Color( 0.839216, 1, 0.764706, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -49,6 +51,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 max_value = 1.0
@@ -65,6 +68,7 @@ margin_left = 10.0
 margin_top = 9.15909
 margin_right = -10.0
 margin_bottom = -10.8409
+mouse_filter = 1
 custom_fonts/mono_font = ExtResource( 2 )
 custom_fonts/italics_font = ExtResource( 2 )
 custom_fonts/normal_font = ExtResource( 2 )
@@ -75,8 +79,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button" type="Button" parent="ColorRect"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Timer" type="Timer" parent="."]
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[connection signal="pressed" from="ColorRect/Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

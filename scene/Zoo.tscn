@@ -5,7 +5,7 @@
 [ext_resource path="res://scene/Zoo.gd" type="Script" id=3]
 [ext_resource path="res://art/object/dino-triceratops.png" type="Texture" id=4]
 [ext_resource path="res://scene/UI/HUD.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scene/Object/coin.tscn" type="PackedScene" id=6]
+[ext_resource path="res://fonts/info font_large.tres" type="DynamicFont" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "handrail-top.png 0"
@@ -48,23 +48,16 @@ tile_data = PoolIntArray( 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0
 position = Vector2( 421.416, 282.52 )
 z_index = 10
 
-[node name="coin2" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
-position = Vector2( 422.111, 265.964 )
-
-[node name="coin3" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
-position = Vector2( 404.758, 281.482 )
-
 [node name="Center" type="Position2D" parent="zoo_scene/TileMap"]
 position = Vector2( 379.757, 242.104 )
 
 [node name="dialog" type="Node2D" parent="zoo_scene/TileMap"]
 scale = Vector2( 0.25, 0.25 )
+z_index = 100
 
 [node name="quest" type="Node2D" parent="zoo_scene/TileMap"]
 scale = Vector2( 0.25, 0.25 )
-
-[node name="coin" parent="zoo_scene/TileMap" instance=ExtResource( 6 )]
-position = Vector2( 437.545, 282.343 )
+z_index = 101
 
 [node name="dialog_view" type="Node2D" parent="zoo_scene/TileMap"]
 visible = false
@@ -94,6 +87,24 @@ __meta__ = {
 }
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 
-[editable path="zoo_scene/TileMap/coin"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="BlackOut" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/BlackOut"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 6 )
+text = "day 1"
+align = 1
+valign = 1
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

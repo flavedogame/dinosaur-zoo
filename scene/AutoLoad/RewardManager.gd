@@ -73,7 +73,7 @@ func start_warning(dinosaur):
 		var warning_instance = warning_scene.instance()
 		warning_instance.init(k)
 		warning_list.append(warning_instance)
-		Util.tilemap.add_child(warning_instance)
+		Util.visitor_warning_parent.add_child(warning_instance)
 	var res = [positions,warning_list, total_coin_value]
 	#print(res)
 	return res

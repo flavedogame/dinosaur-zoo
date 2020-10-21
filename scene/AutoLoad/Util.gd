@@ -22,6 +22,7 @@ var visitor_dialog_parent
 var visitor_quest_parent
 var visitor_warning_parent
 var Player
+var game_root
 
 var DIR = [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]
 

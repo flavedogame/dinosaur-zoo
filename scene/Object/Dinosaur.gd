@@ -14,7 +14,7 @@ var position_index
 var arrived = false
 
 var do_thing_time_range = [0,1]
-var doing_things_rate = [0,100,0]
+var doing_things_rate = [10,50,0]
 enum THINGS_TODO {chitchat,quest,leave,wait,none}
 var current_doing = THINGS_TODO.none
 
@@ -90,16 +90,17 @@ func quest_succeed():
 	
 func quest_failed():
 	finish_quest()
-	var data = RewardManager.start_warning(self)
+	#var data = RewardManager.start_warning(self)
 	yield(show_failed_quest_dialog(),"completed")
 	finish_quest_dialog()
 	
-	RewardManager.offer_reward(self,data)
+	#RewardManager.offer_reward(self,data)
 	print("failed quest")
 
 func test_calculate():
 	if check_if_position_is_close() and Util.Player.is_holding_value(selected_quest.value):
 		yield(quest_succeed(),"completed")
+	yield(get_tree(), 'idle_frame')
 
 func test_quest():
 	#print(quest_name," ",quest_args)

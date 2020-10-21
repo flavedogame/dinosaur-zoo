@@ -56,8 +56,9 @@ func add_reputation(_repu):
 func level_start():
 	level_started = true
 	passed_time = 0
+	last_earning = current_earning
+	last_population = current_population
 	current_earning = 0
-	current_population = 0
 	
 	Events.emit_signal("update_current_earning",current_earning)
 	Events.emit_signal("update_current_reputation",current_population)
@@ -65,6 +66,8 @@ func level_start():
 func do_damage(damage = 1):
 	current_health-=damage
 	Events.emit_signal("update_current_health",current_health)
+	if current_health<=0:
+		Events.emit_signal("health_depleted")
 	
 func is_level_end():
 	var level_info = LevelManger.get_levle_info()

@@ -4,7 +4,7 @@
             
             "pivot":[-1,-1],
             "content": "Let's see how did you do today..",
-            "next": "12-false",
+            "next": "11",
             
         },
         "11": {
@@ -25,7 +25,7 @@
             "speaker":"Curator",
             "pivot":[-1,-1],
             "content": "That's good, keep going!",
-            "next": "13"
+            "next": "15"
         },
         "12-false": {
             "speaker":"Curator",
