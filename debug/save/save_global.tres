@@ -14,10 +14,10 @@ data = {
 "saved_time": {
 "day": 21,
 "dst": false,
-"hour": 2,
-"minute": 8,
+"hour": 22,
+"minute": 23,
 "month": 10,
-"second": 2,
+"second": 44,
 "weekday": 3,
 "year": 2020
 }
@@ -39,15 +39,15 @@ data = {
 }, {
 "day": 3,
 "earning": 0,
-"health": 70,
+"health": 40,
 "reputation": 0,
 "saved_time": {
 "day": 21,
 "dst": false,
-"hour": 1,
-"minute": 55,
+"hour": 2,
+"minute": 16,
 "month": 10,
-"second": 18,
+"second": 40,
 "weekday": 3,
 "year": 2020
 }
@@ -68,16 +68,16 @@ data = {
 }
 }, {
 "day": 5,
-"earning": 0,
-"health": 40,
-"reputation": 0,
+"earning": 217,
+"health": 35,
+"reputation": -46.0,
 "saved_time": {
 "day": 21,
 "dst": false,
-"hour": 1,
-"minute": 56,
+"hour": 2,
+"minute": 16,
 "month": 10,
-"second": 32,
+"second": 7,
 "weekday": 3,
 "year": 2020
 }
@@ -127,15 +127,15 @@ data = {
 "year": 2020
 }
 }, {
-"day": 9,
+"day": 0,
 "earning": 0,
-"health": 20,
+"health": 100,
 "reputation": 0,
 "saved_time": {
 "day": 21,
 "dst": false,
-"hour": 1,
-"minute": 55,
+"hour": 22,
+"minute": 23,
 "month": 10,
 "second": 45,
 "weekday": 3,

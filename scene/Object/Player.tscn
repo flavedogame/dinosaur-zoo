@@ -45,6 +45,12 @@ enabled = true
 cast_to = Vector2( -16, 0 )
 collide_with_areas = true
 
+[node name="RayCastInternal" type="RayCast2D" parent="."]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( -4, 0 )
+collide_with_areas = true
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true

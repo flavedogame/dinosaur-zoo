@@ -1,6 +1,7 @@
 extends Area2D
 
 onready var raycast = $RayCast2D
+onready var raycastInterval = $RayCastInternal
 onready var animation = $AnimationPlayer
 onready var hold_item_position = $hold_item_position
 onready var hold_item_position_next = $hold_item_position_next
@@ -76,6 +77,10 @@ func get_collider(dir):
 	raycast.force_raycast_update()
 	#print(raycast.cast_to)
 	var collider = raycast.get_collider()
+	if collider:
+		#somehow player can stand on coin..a bug for sure. lets "fix" it for now
+		if raycastInterval.is_colliding():
+			return null
 	#print(collider)
 	return collider
 
